@@ -1,0 +1,575 @@
+---
+import Layout from '../layouts/Layout.astro';
+import CTA from '../components/CTA.astro';
+import { Icon } from 'astro-icon/components';
+import pestControlImage from '../assets/image000000.jpeg';
+
+const stats = [
+  { value: '5+', label: 'Years Experience' },
+  { value: '500+', label: 'Happy Customers' },
+  { value: '100%', label: 'Licensed & Insured' },
+  { value: '24/7', label: 'Emergency Response' },
+];
+
+const values = [
+  {
+    icon: 'lucide:heart',
+    title: 'Customer First',
+    description: 'Your satisfaction is our top priority. We listen to your needs and deliver solutions that exceed expectations.',
+  },
+  {
+    icon: 'lucide:shield-check',
+    title: 'Quality & Safety',
+    description: 'We use only approved, effective treatments and follow strict safety protocols to protect your family and pets.',
+  },
+  {
+    icon: 'lucide:users',
+    title: 'Local Expertise',
+    description: 'As locals ourselves, we understand the unique pest and lawn challenges in the Toowoomba region.',
+  },
+  {
+    icon: 'lucide:leaf',
+    title: 'Environmental Care',
+    description: 'We offer eco-friendly options and always consider the environmental impact of our services.',
+  },
+];
+---
+
+<Layout 
+  title="About Us"
+  description="Learn about Highfields Pest & Lawn Maintenance - your trusted local experts for professional pest control and lawn care services in Highfields, Toowoomba and surrounding areas."
+>
+  <!-- Page Hero -->
+  <section class="page-hero">
+    <div class="page-hero__bg">
+      <div class="page-hero__gradient"></div>
+      <div class="page-hero__pattern"></div>
+    </div>
+    <div class="container page-hero__container">
+      <span class="page-hero__label">About Us</span>
+      <h1 class="page-hero__title" transition:name="page-title">Your Local Pest & Lawn Experts</h1>
+      <p class="page-hero__subtitle">
+        Proudly serving Highfields, Toowoomba, and surrounding communities with professional, reliable service.
+      </p>
+    </div>
+  </section>
+
+  <!-- Our Story -->
+  <section class="about-story section">
+    <div class="container about-story__container">
+      <div class="about-story__content">
+        <h2 class="about-story__title">Our Story</h2>
+        <p>
+          Highfields Pest & Lawn Maintenance was founded with a simple mission: to provide our community with reliable, professional pest control and lawn care services they can trust.
+        </p>
+        <p>
+          As a locally-owned and operated business, we understand the unique challenges that Queensland homeowners face. From the persistent pests that thrive in our climate to the specific needs of our native lawns and gardens, we've built our expertise around solving the problems that matter most to our neighbours.
+        </p>
+        <p>
+          We're fully licensed and insured, meaning you can have complete confidence in our services. Every job we undertake is backed by our commitment to quality, safety, and customer satisfaction.
+        </p>
+        <div class="about-story__abn">
+          <strong>ABN:</strong> 83 410 206 618
+        </div>
+      </div>
+      <div class="about-story__visual">
+        <div class="about-story__image">
+          <img 
+            src={pestControlImage.src} 
+            alt="Professional pest control technician performing treatment on a residential property" 
+            loading="lazy"
+            width="600"
+            height="800"
+          />
+        </div>
+        <div class="about-story__stats">
+          {stats.map((stat) => (
+            <div class="stat">
+              <span class="stat__value">{stat.value}</span>
+              <span class="stat__label">{stat.label}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Our Values -->
+  <section class="about-values section bg-gray">
+    <div class="container">
+      <header class="about-values__header">
+        <span class="about-values__label">Our Values</span>
+        <h2 class="about-values__title">What Sets Us Apart</h2>
+      </header>
+      <div class="about-values__grid">
+        {values.map((value) => (
+          <div class="value-card">
+            <div class="value-card__icon">
+              <Icon name={value.icon} />
+            </div>
+            <h3 class="value-card__title">{value.title}</h3>
+            <p class="value-card__description">{value.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Service Area -->
+  <section class="service-area section">
+    <div class="container service-area__container">
+      <div class="service-area__content">
+        <span class="service-area__label">Service Area</span>
+        <h2 class="service-area__title">Serving the Toowoomba Region</h2>
+        <p class="service-area__text">
+          We proudly serve Highfields, Toowoomba, and the surrounding communities in the Darling Downs region. Our local knowledge means we understand the specific pest and lawn care challenges in your area.
+        </p>
+        <ul class="service-area__list">
+          <li>Highfields</li>
+          <li>Toowoomba</li>
+          <li>Meringandan</li>
+          <li>Cabarlah</li>
+          <li>Crows Nest</li>
+          <li>Geham</li>
+          <li>And surrounding areas</li>
+        </ul>
+        <p class="service-area__note">
+          Not sure if we service your area? Give us a call and we'll be happy to help!
+        </p>
+      </div>
+      <div class="service-area__visual">
+        <div class="service-area__map">
+          <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Service area map illustration">
+            <!-- Outer pulsing circle -->
+            <circle class="map-pulse map-pulse--outer" cx="100" cy="100" r="80" fill="var(--color-primary-50)" stroke="var(--color-primary)" stroke-width="2" stroke-dasharray="8 4"/>
+            
+            <!-- Inner circle -->
+            <circle class="map-pulse map-pulse--inner" cx="100" cy="100" r="50" fill="var(--color-primary-100)" stroke="var(--color-primary)" stroke-width="2"/>
+            
+            <!-- Center point -->
+            <circle class="map-center" cx="100" cy="100" r="8" fill="var(--color-primary)"/>
+            
+            <!-- Location label -->
+            <text x="100" y="130" text-anchor="middle" fill="var(--color-primary)" font-size="12" font-weight="600">Highfields</text>
+            
+            <!-- Animated location dots - positioned around the outer ring -->
+            <circle class="map-dot map-dot--1" cx="140" cy="60" r="4" fill="var(--color-primary-light)"/>
+            <circle class="map-dot map-dot--2" cx="60" cy="65" r="4" fill="var(--color-primary-light)"/>
+            <circle class="map-dot map-dot--3" cx="155" cy="120" r="4" fill="var(--color-primary-light)"/>
+            <circle class="map-dot map-dot--4" cx="45" cy="115" r="4" fill="var(--color-primary-light)"/>
+            <circle class="map-dot map-dot--5" cx="130" cy="155" r="4" fill="var(--color-primary-light)"/>
+            <circle class="map-dot map-dot--6" cx="70" cy="150" r="4" fill="var(--color-primary-light)"/>
+            
+            <!-- Radar sweep effect -->
+            <defs>
+              <linearGradient id="radarGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" style="stop-color:var(--color-primary);stop-opacity:0" />
+                <stop offset="100%" style="stop-color:var(--color-primary);stop-opacity:0.3" />
+              </linearGradient>
+            </defs>
+            <path class="map-radar" d="M100,100 L100,20 A80,80 0 0,1 180,100 Z" fill="url(#radarGradient)"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <CTA 
+    title="Ready to Work With Us?"
+    subtitle="Contact us today for a free, no-obligation quote."
+    variant="light"
+  />
+</Layout>
+
+<style>
+  /* Page Hero */
+  .page-hero {
+    position: relative;
+    padding-top: 140px;
+    padding-bottom: var(--spacing-4xl);
+    overflow: hidden;
+  }
+
+  @media (min-width: 768px) {
+    .page-hero {
+      padding-top: 160px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .page-hero {
+      padding-top: 180px;
+    }
+  }
+
+  .page-hero__bg {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+  }
+
+  .page-hero__gradient {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+  }
+
+  .page-hero__pattern {
+    position: absolute;
+    inset: 0;
+    opacity: 0.1;
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+
+  .page-hero__container {
+    text-align: center;
+    color: var(--color-white);
+  }
+
+  .page-hero__label {
+    display: inline-block;
+    padding: var(--spacing-xs) var(--spacing-md);
+    background-color: rgba(255, 255, 255, 0.15);
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    margin-bottom: var(--spacing-md);
+  }
+
+  .page-hero__title {
+    color: var(--color-white);
+    margin-bottom: var(--spacing-md);
+  }
+
+  .page-hero__subtitle {
+    font-size: var(--font-size-xl);
+    opacity: 0.9;
+    max-width: 600px;
+    margin-inline: auto;
+  }
+
+  /* About Story */
+  .about-story__container {
+    display: grid;
+    gap: var(--spacing-3xl);
+    align-items: center;
+  }
+
+  @media (min-width: 1024px) {
+    .about-story__container {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .about-story__title {
+    margin-bottom: var(--spacing-lg);
+  }
+
+  .about-story__content p {
+    color: var(--color-gray-600);
+    line-height: var(--line-height-relaxed);
+  }
+
+  .about-story__abn {
+    margin-top: var(--spacing-lg);
+    padding: var(--spacing-md);
+    background-color: var(--color-gray-50);
+    border-radius: var(--radius-md);
+    font-size: var(--font-size-sm);
+    color: var(--color-gray-600);
+  }
+
+  .about-story__visual {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xl);
+  }
+
+  .about-story__image {
+    position: relative;
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    box-shadow: var(--shadow-xl);
+  }
+
+  .about-story__image::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.2) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  .about-story__image img {
+    width: 100%;
+    height: auto;
+    max-height: 400px;
+    object-fit: cover;
+    display: block;
+  }
+
+  .about-story__stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-lg);
+  }
+
+  .stat {
+    background-color: var(--color-primary-50);
+    border-radius: var(--radius-xl);
+    padding: var(--spacing-xl);
+    text-align: center;
+  }
+
+  .stat__value {
+    display: block;
+    font-family: var(--font-family-display);
+    font-size: var(--font-size-3xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-primary);
+    line-height: 1;
+    margin-bottom: var(--spacing-xs);
+  }
+
+  .stat__label {
+    font-size: var(--font-size-sm);
+    color: var(--color-gray-600);
+  }
+
+  /* About Values */
+  .about-values__header {
+    text-align: center;
+    margin-bottom: var(--spacing-3xl);
+  }
+
+  .about-values__label {
+    display: inline-block;
+    padding: var(--spacing-xs) var(--spacing-md);
+    background-color: var(--color-white);
+    color: var(--color-primary);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    border-radius: var(--radius-full);
+    margin-bottom: var(--spacing-md);
+  }
+
+  .about-values__grid {
+    display: grid;
+    gap: var(--spacing-xl);
+  }
+
+  @media (min-width: 640px) {
+    .about-values__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .value-card {
+    background-color: var(--color-white);
+    border-radius: var(--radius-xl);
+    padding: var(--spacing-xl);
+    text-align: center;
+  }
+
+  .value-card__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 64px;
+    height: 64px;
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+    border-radius: var(--radius-lg);
+    margin-bottom: var(--spacing-md);
+  }
+
+  .value-card__icon svg {
+    width: 32px;
+    height: 32px;
+    color: var(--color-white);
+  }
+
+  .value-card__title {
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--spacing-sm);
+  }
+
+  .value-card__description {
+    color: var(--color-gray-600);
+    font-size: var(--font-size-sm);
+    line-height: var(--line-height-relaxed);
+  }
+
+  /* Service Area */
+  .service-area__container {
+    display: grid;
+    gap: var(--spacing-3xl);
+    align-items: center;
+  }
+
+  @media (min-width: 1024px) {
+    .service-area__container {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .service-area__label {
+    display: inline-block;
+    padding: var(--spacing-xs) var(--spacing-md);
+    background-color: var(--color-primary-100);
+    color: var(--color-primary);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    border-radius: var(--radius-full);
+    margin-bottom: var(--spacing-md);
+  }
+
+  .service-area__title {
+    margin-bottom: var(--spacing-lg);
+  }
+
+  .service-area__text {
+    color: var(--color-gray-600);
+    line-height: var(--line-height-relaxed);
+    margin-bottom: var(--spacing-lg);
+  }
+
+  .service-area__list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-sm) var(--spacing-lg);
+    list-style: none;
+    margin-bottom: var(--spacing-lg);
+  }
+
+  .service-area__list li {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    color: var(--color-gray-700);
+  }
+
+  .service-area__list li::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    background-color: var(--color-primary);
+    border-radius: var(--radius-full);
+    flex-shrink: 0;
+  }
+
+  .service-area__note {
+    font-size: var(--font-size-sm);
+    color: var(--color-gray-500);
+    font-style: italic;
+  }
+
+  .service-area__visual {
+    display: flex;
+    justify-content: center;
+  }
+
+  .service-area__map {
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .service-area__map svg {
+    width: 100%;
+    height: auto;
+  }
+
+  /* Animated Map Styles */
+  .map-pulse--outer {
+    animation: pulse-outer 3s ease-in-out infinite;
+    transform-origin: center;
+  }
+
+  .map-pulse--inner {
+    animation: pulse-inner 3s ease-in-out infinite;
+    animation-delay: 0.5s;
+    transform-origin: center;
+  }
+
+  .map-center {
+    animation: center-pulse 2s ease-in-out infinite;
+  }
+
+  .map-dot {
+    animation: dot-fade 2s ease-in-out infinite;
+  }
+
+  .map-dot--1 { animation-delay: 0s; }
+  .map-dot--2 { animation-delay: 0.3s; }
+  .map-dot--3 { animation-delay: 0.6s; }
+  .map-dot--4 { animation-delay: 0.9s; }
+  .map-dot--5 { animation-delay: 1.2s; }
+  .map-dot--6 { animation-delay: 1.5s; }
+
+  .map-radar {
+    animation: radar-sweep 4s linear infinite;
+    transform-origin: 100px 100px;
+  }
+
+  @keyframes pulse-outer {
+    0%, 100% {
+      opacity: 0.6;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1.02);
+    }
+  }
+
+  @keyframes pulse-inner {
+    0%, 100% {
+      opacity: 0.8;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1.03);
+    }
+  }
+
+  @keyframes center-pulse {
+    0%, 100% {
+      r: 8;
+      opacity: 1;
+    }
+    50% {
+      r: 10;
+      opacity: 0.8;
+    }
+  }
+
+  @keyframes dot-fade {
+    0%, 100% {
+      opacity: 0.5;
+      r: 4;
+    }
+    50% {
+      opacity: 1;
+      r: 5;
+    }
+  }
+
+  @keyframes radar-sweep {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .map-pulse--outer,
+    .map-pulse--inner,
+    .map-center,
+    .map-dot,
+    .map-radar {
+      animation: none;
+    }
+  }
+</style>

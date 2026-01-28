@@ -1,0 +1,551 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { Icon } from 'astro-icon/components';
+---
+
+<Layout 
+  title="Contact Us"
+  description="Get in touch with Highfields Pest & Lawn Maintenance for a free quote. Call 0434 240 629 or email HighfieldsLGM@outlook.com. Serving Highfields, Toowoomba and surrounding areas."
+>
+  <!-- Page Hero -->
+  <section class="page-hero">
+    <div class="page-hero__bg">
+      <div class="page-hero__gradient"></div>
+      <div class="page-hero__pattern"></div>
+    </div>
+    <div class="container page-hero__container">
+      <span class="page-hero__label">Contact Us</span>
+      <h1 class="page-hero__title" transition:name="page-title">Get Your Free Quote Today</h1>
+      <p class="page-hero__subtitle">
+        Ready to transform your property? Reach out and we'll get back to you within 24 hours.
+      </p>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="contact section">
+    <div class="container">
+      <div class="contact__grid">
+        <!-- Contact Form -->
+        <div class="contact__form-wrapper">
+          <h2 class="contact__form-title">Send Us a Message</h2>
+          <p class="contact__form-subtitle">Fill out the form below and we'll be in touch shortly.</p>
+          
+          <form class="contact-form" id="contact-form" action="#" method="POST">
+            <div class="contact-form__row">
+              <div class="contact-form__field">
+                <label for="name" class="contact-form__label">Full Name <span class="required">*</span></label>
+                <input 
+                  type="text" 
+                  id="name" 
+                  name="name" 
+                  class="contact-form__input" 
+                  placeholder="John Smith"
+                  required
+                  autocomplete="name"
+                />
+              </div>
+              <div class="contact-form__field">
+                <label for="phone" class="contact-form__label">Phone Number <span class="required">*</span></label>
+                <input 
+                  type="tel" 
+                  id="phone" 
+                  name="phone" 
+                  class="contact-form__input" 
+                  placeholder="0400 000 000"
+                  required
+                  autocomplete="tel"
+                />
+              </div>
+            </div>
+
+            <div class="contact-form__field">
+              <label for="email" class="contact-form__label">Email Address <span class="required">*</span></label>
+              <input 
+                type="email" 
+                id="email" 
+                name="email" 
+                class="contact-form__input" 
+                placeholder="john@example.com"
+                required
+                autocomplete="email"
+              />
+            </div>
+
+            <div class="contact-form__field">
+              <label for="service" class="contact-form__label">Service Required</label>
+              <select id="service" name="service" class="contact-form__select">
+                <option value="">Select a service...</option>
+                <option value="pest-control">General Pest Control</option>
+                <option value="lawn-maintenance">Lawn Maintenance</option>
+                <option value="garden-care">Garden Care</option>
+                <option value="other">Other / Multiple Services</option>
+              </select>
+            </div>
+
+            <div class="contact-form__field">
+              <label for="address" class="contact-form__label">Property Address</label>
+              <input 
+                type="text" 
+                id="address" 
+                name="address" 
+                class="contact-form__input" 
+                placeholder="123 Main Street, Highfields QLD"
+                autocomplete="street-address"
+              />
+            </div>
+
+            <div class="contact-form__field">
+              <label for="message" class="contact-form__label">Message <span class="required">*</span></label>
+              <textarea 
+                id="message" 
+                name="message" 
+                class="contact-form__textarea" 
+                rows="5"
+                placeholder="Tell us about your requirements or any questions you have..."
+                required
+              ></textarea>
+            </div>
+
+            <div class="contact-form__field contact-form__field--checkbox">
+              <label class="contact-form__checkbox-label">
+                <input type="checkbox" name="consent" required />
+                <span>I agree to be contacted regarding my enquiry</span>
+              </label>
+            </div>
+
+            <button type="submit" class="btn btn--primary btn--lg contact-form__submit">
+              <Icon name="lucide:send" />
+              Send Message
+            </button>
+          </form>
+        </div>
+
+        <!-- Contact Info -->
+        <div class="contact__info">
+          <div class="contact-card">
+            <h3 class="contact-card__title">Contact Information</h3>
+            <p class="contact-card__description">
+              Prefer to reach out directly? Here's how you can contact us.
+            </p>
+
+            <div class="contact-card__items">
+              <a href="tel:0434240629" class="contact-card__item">
+                <div class="contact-card__icon">
+                  <Icon name="lucide:phone" />
+                </div>
+                <div class="contact-card__content">
+                  <span class="contact-card__label">Phone</span>
+                  <span class="contact-card__value">0434 240 629</span>
+                </div>
+              </a>
+
+              <a href="mailto:HighfieldsLGM@outlook.com" class="contact-card__item">
+                <div class="contact-card__icon">
+                  <Icon name="lucide:mail" />
+                </div>
+                <div class="contact-card__content">
+                  <span class="contact-card__label">Email</span>
+                  <span class="contact-card__value">HighfieldsLGM@outlook.com</span>
+                </div>
+              </a>
+
+              <div class="contact-card__item">
+                <div class="contact-card__icon">
+                  <Icon name="lucide:map-pin" />
+                </div>
+                <div class="contact-card__content">
+                  <span class="contact-card__label">Service Area</span>
+                  <span class="contact-card__value">Highfields, Toowoomba & Surrounding Areas</span>
+                </div>
+              </div>
+
+              <div class="contact-card__item">
+                <div class="contact-card__icon">
+                  <Icon name="lucide:clock" />
+                </div>
+                <div class="contact-card__content">
+                  <span class="contact-card__label">Business Hours</span>
+                  <span class="contact-card__value">Mon-Fri: 7am - 5pm<br/>Sat: By Appointment</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="contact-card contact-card--highlight">
+            <div class="contact-card__badge">
+              <Icon name="lucide:shield-check" />
+              Licensed & Insured
+            </div>
+            <h4>Why Choose Us?</h4>
+            <ul>
+              <li>
+                <Icon name="lucide:check" />
+                Free quotes with no obligation
+              </li>
+              <li>
+                <Icon name="lucide:check" />
+                Same-day response guaranteed
+              </li>
+              <li>
+                <Icon name="lucide:check" />
+                Locally owned and operated
+              </li>
+              <li>
+                <Icon name="lucide:check" />
+                Customer satisfaction guaranteed
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</Layout>
+
+<style>
+  /* Page Hero */
+  .page-hero {
+    position: relative;
+    padding-top: 140px;
+    padding-bottom: var(--spacing-4xl);
+    overflow: hidden;
+  }
+
+  @media (min-width: 768px) {
+    .page-hero {
+      padding-top: 160px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .page-hero {
+      padding-top: 180px;
+    }
+  }
+
+  .page-hero__bg {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+  }
+
+  .page-hero__gradient {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+  }
+
+  .page-hero__pattern {
+    position: absolute;
+    inset: 0;
+    opacity: 0.1;
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+
+  .page-hero__container {
+    text-align: center;
+    color: var(--color-white);
+  }
+
+  .page-hero__label {
+    display: inline-block;
+    padding: var(--spacing-xs) var(--spacing-md);
+    background-color: rgba(255, 255, 255, 0.15);
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    margin-bottom: var(--spacing-md);
+  }
+
+  .page-hero__title {
+    color: var(--color-white);
+    margin-bottom: var(--spacing-md);
+  }
+
+  .page-hero__subtitle {
+    font-size: var(--font-size-xl);
+    opacity: 0.9;
+    max-width: 600px;
+    margin-inline: auto;
+  }
+
+  /* Contact Section */
+  .contact__grid {
+    display: grid;
+    gap: var(--spacing-3xl);
+  }
+
+  @media (min-width: 1024px) {
+    .contact__grid {
+      grid-template-columns: 1fr 400px;
+    }
+  }
+
+  .contact__form-title {
+    font-weight: var(--font-weight-semibold);
+    margin-bottom: var(--spacing-sm);
+  }
+
+  .contact__form-subtitle {
+    color: var(--color-gray-600);
+    margin-bottom: var(--spacing-xl);
+  }
+
+  /* Contact Form */
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg);
+  }
+
+  .contact-form__row {
+    display: grid;
+    gap: var(--spacing-lg);
+  }
+
+  @media (min-width: 640px) {
+    .contact-form__row {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .contact-form__label {
+    display: block;
+    font-weight: var(--font-weight-medium);
+    margin-bottom: var(--spacing-sm);
+    color: var(--color-gray-700);
+  }
+
+  .contact-form__label .required {
+    color: var(--color-error);
+  }
+
+  .contact-form__input,
+  .contact-form__select,
+  .contact-form__textarea {
+    width: 100%;
+    padding: var(--spacing-md);
+    font-family: inherit;
+    font-size: var(--font-size-base);
+    color: var(--color-gray-800);
+    background-color: var(--color-white);
+    border: 2px solid var(--color-gray-200);
+    border-radius: var(--radius-lg);
+    transition: all var(--transition-fast);
+  }
+
+  .contact-form__input:focus,
+  .contact-form__select:focus,
+  .contact-form__textarea:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px var(--color-primary-100);
+  }
+
+  .contact-form__input::placeholder,
+  .contact-form__textarea::placeholder {
+    color: var(--color-gray-400);
+  }
+
+  .contact-form__select {
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right var(--spacing-md) center;
+    background-size: 20px;
+    padding-right: var(--spacing-3xl);
+  }
+
+  .contact-form__textarea {
+    resize: vertical;
+    min-height: 120px;
+  }
+
+  .contact-form__field--checkbox {
+    margin-top: var(--spacing-sm);
+  }
+
+  .contact-form__checkbox-label {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--spacing-sm);
+    cursor: pointer;
+    font-size: var(--font-size-sm);
+    color: var(--color-gray-600);
+  }
+
+  .contact-form__checkbox-label input {
+    margin-top: 3px;
+    width: 18px;
+    height: 18px;
+    accent-color: var(--color-primary);
+  }
+
+  .contact-form__submit {
+    width: 100%;
+    margin-top: var(--spacing-md);
+  }
+
+  .contact-form__submit svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  /* Contact Info */
+  .contact__info {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xl);
+  }
+
+  .contact-card {
+    background-color: var(--color-white);
+    border-radius: var(--radius-xl);
+    padding: var(--spacing-xl);
+    box-shadow: var(--shadow-md);
+  }
+
+  .contact-card__title {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-semibold);
+    margin-bottom: var(--spacing-sm);
+  }
+
+  .contact-card__description {
+    color: var(--color-gray-600);
+    margin-bottom: var(--spacing-lg);
+  }
+
+  .contact-card__items {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+  }
+
+  .contact-card__item {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--spacing-md);
+    text-decoration: none;
+    color: inherit;
+    padding: var(--spacing-sm);
+    margin: calc(var(--spacing-sm) * -1);
+    border-radius: var(--radius-md);
+    transition: background-color var(--transition-fast);
+  }
+
+  a.contact-card__item:hover {
+    background-color: var(--color-gray-50);
+  }
+
+  .contact-card__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    background-color: var(--color-primary-50);
+    border-radius: var(--radius-md);
+    flex-shrink: 0;
+  }
+
+  .contact-card__icon svg {
+    width: 20px;
+    height: 20px;
+    color: var(--color-primary);
+  }
+
+  .contact-card__content {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .contact-card__label {
+    font-size: var(--font-size-sm);
+    color: var(--color-gray-500);
+  }
+
+  .contact-card__value {
+    font-weight: var(--font-weight-medium);
+    color: var(--color-gray-800);
+  }
+
+  /* Highlight Card */
+  .contact-card--highlight {
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+    color: var(--color-white);
+  }
+
+  .contact-card__badge {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-sm) var(--spacing-md);
+    background-color: rgba(255, 255, 255, 0.15);
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    margin-bottom: var(--spacing-md);
+  }
+
+  .contact-card__badge svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .contact-card--highlight h4 {
+    color: var(--color-white);
+    font-weight: var(--font-weight-semibold);
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--spacing-md);
+  }
+
+  .contact-card--highlight ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+  }
+
+  .contact-card--highlight li {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    font-size: var(--font-size-sm);
+    opacity: 0.95;
+  }
+
+  .contact-card--highlight li svg {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    color: var(--color-accent);
+  }
+
+</style>
+
+<script>
+  document.addEventListener('astro:page-load', () => {
+    const form = document.getElementById('contact-form') as HTMLFormElement;
+    
+    if (form) {
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        
+        // Get form data
+        const formData = new FormData(form);
+        const data = Object.fromEntries(formData.entries());
+        
+        // Here you would typically send the data to your backend
+        console.log('Form submitted:', data);
+        
+        // Show success message (in production, handle actual form submission)
+        alert('Thank you for your message! We will be in touch within 24 hours.');
+        form.reset();
+      });
+    }
+  });
+</script>

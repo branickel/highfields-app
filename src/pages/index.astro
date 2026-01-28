@@ -1,11 +1,29 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import Hero from '../components/Hero.astro';
+import Services from '../components/Services.astro';
+import Features from '../components/Features.astro';
+import Testimonials from '../components/Testimonials.astro';
+import CTA from '../components/CTA.astro';
 ---
 
-<Layout>
-	<Welcome />
+<Layout 
+  title="Home"
+  description="Highfields Pest & Lawn Maintenance provides expert, locally-owned pest control and lawn care solutions in Toowoomba and surrounding areas. Fully licensed and insured. Request your free quote today!"
+>
+  <Hero 
+    title="Expert Pest Control & Lawn Care"
+    subtitle="Highfields Pest & Lawn Maintenance provides expert, locally-owned solutions to keep your property pristine and protected. As a fully licensed operator, we deliver professional pest control services and premium lawn care."
+  />
+  
+  <Services />
+  
+  <Features />
+  
+  <Testimonials />
+  
+  <CTA 
+    title="Ready to Transform Your Property?"
+    subtitle="Trust the local experts to care for your home. Request your free quote today via our service inquiry form."
+  />
 </Layout>

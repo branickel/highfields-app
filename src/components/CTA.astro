@@ -1,0 +1,172 @@
+---
+import { Icon } from 'astro-icon/components';
+
+interface Props {
+  title?: string;
+  subtitle?: string;
+  buttonText?: string;
+  buttonLink?: string;
+  variant?: 'default' | 'light';
+}
+
+const {
+  title = 'Ready to Get Started?',
+  subtitle = 'Request your free quote today and take the first step towards a pest-free, pristine property.',
+  buttonText = 'Get Your Free Quote',
+  buttonLink = '/contact',
+  variant = 'default',
+} = Astro.props;
+---
+
+<section class:list={['cta', `cta--${variant}`]}>
+  <div class="cta__bg">
+    <div class="cta__pattern"></div>
+  </div>
+  
+  <div class="container cta__container">
+    <div class="cta__content">
+      <h2 class="cta__title">{title}</h2>
+      <p class="cta__subtitle">{subtitle}</p>
+    </div>
+    
+    <div class="cta__actions">
+      <a href={buttonLink} class:list={['btn', 'btn--lg', variant === 'default' ? 'btn--accent' : 'btn--primary', 'cta__button']}>
+        <Icon name="lucide:calendar-check" />
+        {buttonText}
+      </a>
+      <div class="cta__contact">
+        <span class="cta__contact-label">Or call us directly</span>
+        <a href="tel:0434240629" class="cta__phone">0434 240 629</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .cta {
+    position: relative;
+    padding-block: var(--spacing-4xl);
+    overflow: hidden;
+  }
+
+  .cta--default {
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+    color: var(--color-white);
+  }
+
+  .cta--light {
+    background-color: var(--color-gray-50);
+    color: var(--color-gray-900);
+  }
+
+  .cta__bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .cta--default .cta__pattern {
+    position: absolute;
+    inset: 0;
+    opacity: 0.1;
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+
+  .cta__container {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-xl);
+    text-align: center;
+  }
+
+  @media (min-width: 1024px) {
+    .cta__container {
+      flex-direction: row;
+      justify-content: space-between;
+      text-align: left;
+    }
+  }
+
+  .cta__content {
+    max-width: 600px;
+  }
+
+  .cta__title {
+    font-size: var(--font-size-3xl);
+    margin-bottom: var(--spacing-sm);
+  }
+
+  .cta--default .cta__title {
+    color: var(--color-white);
+  }
+
+  .cta__subtitle {
+    font-size: var(--font-size-lg);
+    opacity: 0.9;
+    margin: 0;
+  }
+
+  .cta--light .cta__subtitle {
+    color: var(--color-gray-600);
+  }
+
+  .cta__actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-lg);
+  }
+
+  @media (min-width: 640px) {
+    .cta__actions {
+      flex-direction: row;
+      gap: var(--spacing-xl);
+    }
+  }
+
+  .cta__button svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .cta__contact {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-xs);
+  }
+
+  @media (min-width: 640px) {
+    .cta__contact {
+      align-items: flex-start;
+    }
+  }
+
+  .cta__contact-label {
+    font-size: var(--font-size-sm);
+    opacity: 0.8;
+  }
+
+  .cta__phone {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+    text-decoration: none;
+    transition: opacity var(--transition-fast);
+  }
+
+  .cta--default .cta__phone {
+    color: var(--color-white);
+  }
+
+  .cta--light .cta__phone {
+    color: var(--color-primary);
+  }
+
+  .cta__phone:hover {
+    opacity: 0.8;
+  }
+</style>

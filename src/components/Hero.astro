@@ -1,0 +1,293 @@
+---
+import { Icon } from 'astro-icon/components';
+import heroImage from '../assets/image000000.jpeg';
+
+interface Props {
+  title?: string;
+  subtitle?: string;
+  showCTA?: boolean;
+}
+
+const {
+  title = 'Expert Pest Control & Lawn Care',
+  subtitle = 'Highfields Pest & Lawn Maintenance provides expert, locally-owned solutions to keep your property pristine and protected. As a fully licensed operator, we deliver professional pest control services and premium lawn care.',
+  showCTA = true,
+} = Astro.props;
+---
+
+<section class="hero">
+  <!-- Background Image -->
+  <div class="hero__bg">
+    <img 
+      src={heroImage.src} 
+      alt="" 
+      class="hero__bg-image"
+      loading="eager"
+    />
+    <div class="hero__overlay"></div>
+  </div>
+  
+  <div class="hero__container container">
+    <div class="hero__content">
+      <span class="hero__badge">
+        <Icon name="lucide:shield-check" />
+        Licensed & Fully Insured
+      </span>
+      
+      <h1 class="hero__title">{title}</h1>
+      
+      <p class="hero__subtitle">{subtitle}</p>
+
+      {showCTA && (
+        <div class="hero__actions">
+          <a href="/contact" class="hero__cta-primary">
+            <Icon name="lucide:calendar-check" />
+            Book Free Quote
+          </a>
+          <a href="tel:0434240629" class="hero__cta-secondary">
+            <Icon name="lucide:phone" />
+            0434 240 629
+          </a>
+        </div>
+      )}
+
+      <div class="hero__features">
+        <div class="hero__feature">
+          <Icon name="lucide:check" />
+          <span>Same Day Service</span>
+        </div>
+        <div class="hero__feature">
+          <Icon name="lucide:check" />
+          <span>Free Quotes</span>
+        </div>
+        <div class="hero__feature">
+          <Icon name="lucide:check" />
+          <span>Local Experts</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    min-height: 90vh;
+    display: flex;
+    align-items: center;
+    padding-top: 120px;
+    padding-bottom: 60px;
+  }
+
+  @media (min-width: 768px) {
+    .hero {
+      min-height: 85vh;
+      padding-top: 140px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .hero {
+      min-height: 100vh;
+      min-height: 100svh;
+      padding-top: 140px;
+    }
+  }
+
+  .hero__bg {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-color: var(--color-primary-dark);
+  }
+
+  .hero__bg-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 70% top;
+  }
+
+  @media (min-width: 768px) {
+    .hero__bg-image {
+      object-position: 80% 15%;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .hero__bg-image {
+      object-position: right 10%;
+    }
+  }
+
+  .hero__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to right,
+      rgba(0, 0, 0, 0.85) 0%,
+      rgba(0, 0, 0, 0.7) 40%,
+      rgba(0, 0, 0, 0.4) 70%,
+      rgba(0, 0, 0, 0.2) 100%
+    );
+  }
+
+  @media (max-width: 768px) {
+    .hero__overlay {
+      background: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0.7) 0%,
+        rgba(0, 0, 0, 0.6) 100%
+      );
+    }
+  }
+
+  .hero__container {
+    position: relative;
+    z-index: 1;
+    padding-block: var(--spacing-3xl);
+  }
+
+  @media (min-width: 768px) {
+    .hero__container {
+      padding-block: var(--spacing-4xl);
+    }
+  }
+
+  .hero__content {
+    max-width: 640px;
+    color: var(--color-white);
+  }
+
+  .hero__badge {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-sm) var(--spacing-md);
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    margin-bottom: var(--spacing-xl);
+  }
+
+  .hero__badge svg {
+    width: 18px;
+    height: 18px;
+    color: var(--color-accent);
+  }
+
+  .hero__title {
+    font-size: clamp(2.5rem, 5vw + 1rem, 4rem);
+    font-weight: var(--font-weight-extrabold);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: var(--spacing-lg);
+    color: var(--color-white);
+  }
+
+  .hero__subtitle {
+    font-size: var(--font-size-lg);
+    line-height: var(--line-height-relaxed);
+    color: rgba(255, 255, 255, 0.85);
+    margin-bottom: var(--spacing-xl);
+  }
+
+  .hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-2xl);
+  }
+
+  .hero__cta-primary,
+  .hero__cta-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-md) var(--spacing-xl);
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-semibold);
+    text-decoration: none;
+    border-radius: var(--radius-md);
+    transition: all var(--transition-base);
+  }
+
+  .hero__cta-primary {
+    background-color: var(--color-accent);
+    color: var(--color-gray-900);
+    border: 2px solid var(--color-accent);
+  }
+
+  .hero__cta-primary:hover {
+    background-color: var(--color-accent-light);
+    border-color: var(--color-accent-light);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(245, 158, 11, 0.4);
+  }
+
+  .hero__cta-secondary {
+    background-color: transparent;
+    color: var(--color-white);
+    border: 2px solid rgba(255, 255, 255, 0.4);
+  }
+
+  .hero__cta-secondary:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.6);
+    color: var(--color-white);
+  }
+
+  .hero__cta-primary svg,
+  .hero__cta-secondary svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .hero__features {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-lg);
+  }
+
+  .hero__feature {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    font-size: var(--font-size-sm);
+    color: rgba(255, 255, 255, 0.9);
+  }
+
+  .hero__feature svg {
+    width: 18px;
+    height: 18px;
+    color: var(--color-accent);
+    flex-shrink: 0;
+  }
+
+  @media (max-width: 640px) {
+    .hero__content {
+      text-align: center;
+    }
+
+    .hero__badge {
+      margin-inline: auto;
+    }
+
+    .hero__actions {
+      justify-content: center;
+    }
+
+    .hero__features {
+      justify-content: center;
+    }
+
+    .hero__cta-primary,
+    .hero__cta-secondary {
+      width: 100%;
+    }
+  }
+</style>

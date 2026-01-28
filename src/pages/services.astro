@@ -1,0 +1,527 @@
+---
+import Layout from '../layouts/Layout.astro';
+import CTA from '../components/CTA.astro';
+import { Icon } from 'astro-icon/components';
+
+interface ServiceDetail {
+  id: string;
+  icon: string;
+  title: string;
+  description: string;
+  longDescription: string;
+  features: string[];
+  benefits: string[];
+}
+
+const services: ServiceDetail[] = [
+  {
+    id: 'pest-control',
+    icon: 'lucide:bug',
+    title: 'General Pest Control',
+    description: 'Comprehensive pest management solutions for residential and commercial properties.',
+    longDescription: 'Our general pest control services are designed to eliminate and prevent infestations of all common household pests. We use safe, effective treatments that protect your family, pets, and property while delivering lasting results.',
+    features: [
+      'Cockroach treatment and prevention',
+      'Spider control and web removal',
+      'Silverfish treatment',
+      'Bed bug elimination',
+      'Mice and rat control',
+      'Flea and tick treatment',
+      'Wasp removal',
+      'Mosquito control',
+    ],
+    benefits: [
+      'Safe treatments for families and pets',
+      'Long-lasting protection',
+      'Licensed and insured technicians',
+      'Eco-friendly options available',
+    ],
+  },
+  {
+    id: 'lawn-care',
+    icon: 'lucide:trees',
+    title: 'Lawn Maintenance',
+    description: 'Professional lawn care to keep your grass healthy and beautiful year-round.',
+    longDescription: 'A beautiful lawn is the foundation of great curb appeal. Our comprehensive lawn maintenance services ensure your grass stays healthy, green, and perfectly manicured through every season.',
+    features: [
+      'Lawn mowing',
+      'Hedging and edging',
+      'Pruning services',
+      'Mulching',
+      'Yard cleanup',
+      'Weed control',
+      'Seasonal maintenance',
+      'Garden bed care',
+    ],
+    benefits: [
+      'Customized maintenance schedules',
+      'Locally-suited grass care',
+      'Professional-grade equipment',
+      'Consistent, reliable service',
+    ],
+  },
+  {
+    id: 'garden-care',
+    icon: 'lucide:flower-2',
+    title: 'Garden Maintenance',
+    description: 'Expert garden care to keep your outdoor spaces thriving and beautiful.',
+    longDescription: 'Your garden deserves the same attention as your lawn. Our garden maintenance services help maintain the beauty and health of your plants, hedges, and garden beds throughout the year.',
+    features: [
+      'Pruning and trimming',
+      'Hedge maintenance and shaping',
+      'Garden bed weeding',
+      'Mulching and top dressing',
+      'Plant health assessments',
+      'Seasonal planting',
+      'Garden waste removal',
+      'Shrub and tree care',
+    ],
+    benefits: [
+      'Expert horticultural knowledge',
+      'Native plant specialists',
+      'Sustainable practices',
+      'Year-round garden beauty',
+    ],
+  },
+];
+---
+
+<Layout 
+  title="Our Services"
+  description="Professional pest control, lawn maintenance, and garden care services in Highfields, Toowoomba and surrounding areas. Fully licensed and insured. Get a free quote today!"
+>
+  <!-- Page Hero -->
+  <section class="page-hero">
+    <div class="page-hero__bg">
+      <div class="page-hero__gradient"></div>
+      <div class="page-hero__pattern"></div>
+    </div>
+    <div class="container page-hero__container">
+      <span class="page-hero__label">Our Services</span>
+      <h1 class="page-hero__title" transition:name="page-title">Professional Solutions for Your Property</h1>
+      <p class="page-hero__subtitle">
+        From pest-free homes to pristine lawns, we provide comprehensive services tailored to your needs.
+      </p>
+    </div>
+  </section>
+
+  <!-- Services Detail -->
+  <section class="services-detail section">
+    <div class="container">
+      {services.map((service, index) => (
+        <article class="service-detail" id={service.id}>
+          <div class:list={['service-detail__container', { 'service-detail__container--reverse': index % 2 === 1 }]}>
+            <div class="service-detail__content">
+              <div class="service-detail__icon">
+                <Icon name={service.icon} />
+              </div>
+              <h2 class="service-detail__title">{service.title}</h2>
+              <p class="service-detail__description">{service.longDescription}</p>
+              
+              <div class="service-detail__features">
+                <h3 class="service-detail__features-title">What's Included</h3>
+                <ul class="service-detail__features-list">
+                  {service.features.map((feature) => (
+                    <li>
+                      <Icon name="lucide:check" />
+                      {feature}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <a href="/contact" class="btn btn--primary">
+                Get a Free Quote
+                <Icon name="lucide:arrow-right" />
+              </a>
+            </div>
+
+            <div class="service-detail__sidebar">
+              <div class="service-detail__benefits">
+                <h3 class="service-detail__benefits-title">Why Choose Us</h3>
+                <ul class="service-detail__benefits-list">
+                  {service.benefits.map((benefit) => (
+                    <li>
+                      <Icon name="lucide:star" />
+                      {benefit}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div class="service-detail__cta-card">
+                <h4>Need This Service?</h4>
+                <p>Contact us today for a free, no-obligation quote.</p>
+                <a href="tel:0434240629" class="service-detail__phone">
+                  <Icon name="lucide:phone" />
+                  0434 240 629
+                </a>
+              </div>
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <!-- Process Section -->
+  <section class="process section bg-gray">
+    <div class="container">
+      <header class="process__header">
+        <span class="process__label">How It Works</span>
+        <h2 class="process__title">Simple Steps to a Better Property</h2>
+      </header>
+
+      <div class="process__steps">
+        <div class="process__step">
+          <div class="process__step-number">1</div>
+          <h3 class="process__step-title">Request a Quote</h3>
+          <p class="process__step-description">Contact us via phone, email, or our online form for a free, no-obligation quote.</p>
+        </div>
+        <div class="process__connector"></div>
+        <div class="process__step">
+          <div class="process__step-number">2</div>
+          <h3 class="process__step-title">Site Assessment</h3>
+          <p class="process__step-description">We'll assess your property and discuss your specific needs and concerns.</p>
+        </div>
+        <div class="process__connector"></div>
+        <div class="process__step">
+          <div class="process__step-number">3</div>
+          <h3 class="process__step-title">Service Delivery</h3>
+          <p class="process__step-description">Our licensed professionals deliver quality service at your convenience.</p>
+        </div>
+        <div class="process__connector"></div>
+        <div class="process__step">
+          <div class="process__step-number">4</div>
+          <h3 class="process__step-title">Ongoing Support</h3>
+          <p class="process__step-description">We provide follow-up care and maintenance plans to keep your property in top condition.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <CTA />
+</Layout>
+
+<style>
+  /* Page Hero */
+  .page-hero {
+    position: relative;
+    padding-top: 140px;
+    padding-bottom: var(--spacing-4xl);
+    overflow: hidden;
+  }
+
+  @media (min-width: 768px) {
+    .page-hero {
+      padding-top: 160px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .page-hero {
+      padding-top: 180px;
+    }
+  }
+
+  .page-hero__bg {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+  }
+
+  .page-hero__gradient {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+  }
+
+  .page-hero__pattern {
+    position: absolute;
+    inset: 0;
+    opacity: 0.1;
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+
+  .page-hero__container {
+    text-align: center;
+    color: var(--color-white);
+  }
+
+  .page-hero__label {
+    display: inline-block;
+    padding: var(--spacing-xs) var(--spacing-md);
+    background-color: rgba(255, 255, 255, 0.15);
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    margin-bottom: var(--spacing-md);
+  }
+
+  .page-hero__title {
+    color: var(--color-white);
+    margin-bottom: var(--spacing-md);
+  }
+
+  .page-hero__subtitle {
+    font-size: var(--font-size-xl);
+    opacity: 0.9;
+    max-width: 600px;
+    margin-inline: auto;
+  }
+
+  /* Services Detail */
+  .service-detail {
+    padding-block: var(--spacing-3xl);
+    border-bottom: 1px solid var(--color-gray-200);
+  }
+
+  .service-detail:last-child {
+    border-bottom: none;
+  }
+
+  .service-detail__container {
+    display: grid;
+    gap: var(--spacing-3xl);
+  }
+
+  @media (min-width: 1024px) {
+    .service-detail__container {
+      grid-template-columns: 1fr 380px;
+    }
+
+    .service-detail__container--reverse {
+      direction: rtl;
+    }
+
+    .service-detail__container--reverse > * {
+      direction: ltr;
+    }
+  }
+
+  .service-detail__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 72px;
+    height: 72px;
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+    border-radius: var(--radius-xl);
+    margin-bottom: var(--spacing-lg);
+  }
+
+  .service-detail__icon svg {
+    width: 36px;
+    height: 36px;
+    color: var(--color-white);
+  }
+
+  .service-detail__title {
+    margin-bottom: var(--spacing-md);
+  }
+
+  .service-detail__description {
+    font-size: var(--font-size-lg);
+    color: var(--color-gray-600);
+    line-height: var(--line-height-relaxed);
+    margin-bottom: var(--spacing-xl);
+  }
+
+  .service-detail__features-title {
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--spacing-md);
+  }
+
+  .service-detail__features-list {
+    display: grid;
+    gap: var(--spacing-sm);
+    list-style: none;
+    margin-bottom: var(--spacing-xl);
+  }
+
+  @media (min-width: 640px) {
+    .service-detail__features-list {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .service-detail__features-list li {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    color: var(--color-gray-700);
+  }
+
+  .service-detail__features-list svg {
+    width: 20px;
+    height: 20px;
+    color: var(--color-success);
+    flex-shrink: 0;
+  }
+
+  .service-detail__content .btn svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .service-detail__sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xl);
+  }
+
+  .service-detail__benefits {
+    background-color: var(--color-gray-50);
+    border-radius: var(--radius-xl);
+    padding: var(--spacing-xl);
+  }
+
+  .service-detail__benefits-title {
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--spacing-md);
+  }
+
+  .service-detail__benefits-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+  }
+
+  .service-detail__benefits-list li {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    color: var(--color-gray-700);
+  }
+
+  .service-detail__benefits-list svg {
+    width: 18px;
+    height: 18px;
+    color: var(--color-accent);
+    flex-shrink: 0;
+  }
+
+  .service-detail__cta-card {
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+    border-radius: var(--radius-xl);
+    padding: var(--spacing-xl);
+    color: var(--color-white);
+    text-align: center;
+  }
+
+  .service-detail__cta-card h4 {
+    color: var(--color-white);
+    margin-bottom: var(--spacing-sm);
+  }
+
+  .service-detail__cta-card p {
+    opacity: 0.9;
+    margin-bottom: var(--spacing-md);
+  }
+
+  .service-detail__phone {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-sm);
+    width: 100%;
+    padding: var(--spacing-md);
+    background-color: var(--color-white);
+    color: var(--color-primary);
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-bold);
+    text-decoration: none;
+    border-radius: var(--radius-lg);
+    transition: all var(--transition-base);
+  }
+
+  .service-detail__phone:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .service-detail__phone svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  /* Process */
+  .process__header {
+    text-align: center;
+    margin-bottom: var(--spacing-3xl);
+  }
+
+  .process__label {
+    display: inline-block;
+    padding: var(--spacing-xs) var(--spacing-md);
+    background-color: var(--color-white);
+    color: var(--color-primary);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    border-radius: var(--radius-full);
+    margin-bottom: var(--spacing-md);
+  }
+
+  .process__steps {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-lg);
+  }
+
+  @media (min-width: 1024px) {
+    .process__steps {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+  }
+
+  .process__step {
+    text-align: center;
+    max-width: 250px;
+  }
+
+  .process__step-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 56px;
+    height: 56px;
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+    color: var(--color-white);
+    font-family: var(--font-family-display);
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
+    border-radius: var(--radius-full);
+    margin-bottom: var(--spacing-md);
+  }
+
+  .process__step-title {
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--spacing-sm);
+  }
+
+  .process__step-description {
+    color: var(--color-gray-600);
+    font-size: var(--font-size-sm);
+    line-height: var(--line-height-relaxed);
+  }
+
+  .process__connector {
+    width: 2px;
+    height: 40px;
+    background: linear-gradient(to bottom, var(--color-primary), var(--color-primary-light));
+  }
+
+  @media (min-width: 1024px) {
+    .process__connector {
+      width: 60px;
+      height: 2px;
+      background: linear-gradient(to right, var(--color-primary), var(--color-primary-light));
+      align-self: center;
+      margin-top: 28px;
+    }
+  }
+</style>

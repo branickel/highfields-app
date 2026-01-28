@@ -1,0 +1,134 @@
+---
+import { Icon } from 'astro-icon/components';
+
+const features = [
+  {
+    icon: 'lucide:award',
+    title: 'Fully Licensed',
+    description: 'Licensed pest control operator with all required certifications and insurance.',
+  },
+  {
+    icon: 'lucide:map-pin',
+    title: 'Locally Owned',
+    description: 'Proudly serving Highfields, Toowoomba, and surrounding Queensland communities.',
+  },
+  {
+    icon: 'lucide:clock',
+    title: 'Fast Response',
+    description: 'Quick turnaround times with flexible scheduling to suit your needs.',
+  },
+  {
+    icon: 'lucide:thumbs-up',
+    title: 'Satisfaction Guaranteed',
+    description: 'We stand behind our work with a commitment to customer satisfaction.',
+  },
+  {
+    icon: 'lucide:leaf',
+    title: 'Eco-Friendly Options',
+    description: 'Environmentally conscious treatments that are safe for your family and pets.',
+  },
+  {
+    icon: 'lucide:badge-dollar-sign',
+    title: 'Competitive Pricing',
+    description: 'Quality services at fair, transparent prices with free quotes available.',
+  },
+];
+---
+
+<section class="features section--sm">
+  <div class="container">
+    <header class="features__header">
+      <span class="features__label">Why Choose Us</span>
+      <h2 class="features__title">The Local Experts You Can Trust</h2>
+    </header>
+
+    <div class="features__grid">
+      {features.map((feature) => (
+        <div class="feature">
+          <div class="feature__icon">
+            <Icon name={feature.icon} />
+          </div>
+          <h3 class="feature__title">{feature.title}</h3>
+          <p class="feature__description">{feature.description}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .features {
+    background-color: var(--color-white);
+  }
+
+  .features__header {
+    text-align: center;
+    margin-bottom: var(--spacing-3xl);
+  }
+
+  .features__label {
+    display: inline-block;
+    padding: var(--spacing-xs) var(--spacing-md);
+    background-color: var(--color-primary-100);
+    color: var(--color-primary);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    border-radius: var(--radius-full);
+    margin-bottom: var(--spacing-md);
+  }
+
+  .features__title {
+    max-width: 500px;
+    margin-inline: auto;
+  }
+
+  .features__grid {
+    display: grid;
+    gap: var(--spacing-xl);
+  }
+
+  @media (min-width: 640px) {
+    .features__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .features__grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .feature {
+    text-align: center;
+    padding: var(--spacing-lg);
+  }
+
+  .feature__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 56px;
+    height: 56px;
+    background-color: var(--color-primary-50);
+    border-radius: var(--radius-full);
+    margin-bottom: var(--spacing-md);
+  }
+
+  .feature__icon svg {
+    width: 28px;
+    height: 28px;
+    color: var(--color-primary);
+  }
+
+  .feature__title {
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--spacing-sm);
+  }
+
+  .feature__description {
+    color: var(--color-gray-600);
+    font-size: var(--font-size-sm);
+    line-height: var(--line-height-relaxed);
+  }
+</style>
