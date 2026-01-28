@@ -1,26 +1,9 @@
 ---
 import { Icon } from 'astro-icon/components';
+import testimonials from '../data/testimonials.json';
 
-const testimonials = [
-  {
-    quote: "Fantastic service from start to finish. They were professional, on time, and our pest problem was resolved immediately. Highly recommend!",
-    author: "Sarah M.",
-    location: "Highfields",
-    rating: 5,
-  },
-  {
-    quote: "Been using them for lawn maintenance for over a year now. Our yard has never looked better. Great attention to detail and always reliable.",
-    author: "Mark T.",
-    location: "Toowoomba",
-    rating: 5,
-  },
-  {
-    quote: "Quick response, fair pricing, and excellent results. They really know what they're doing. Will definitely use again!",
-    author: "Jennifer L.",
-    location: "Highfields",
-    rating: 5,
-  },
-];
+// Duplicate for infinite scroll effect
+const allTestimonials = [...testimonials, ...testimonials];
 ---
 
 <section class="testimonials section">
@@ -32,10 +15,12 @@ const testimonials = [
         Don't just take our word for it — hear from our satisfied customers.
       </p>
     </header>
+  </div>
 
-    <div class="testimonials__grid">
-      {testimonials.map((testimonial) => (
-        <article class="testimonial-card">
+  <div class="testimonials__carousel">
+    <div class="testimonials__track">
+      {allTestimonials.map((testimonial, index) => (
+        <article class="testimonial-card" key={index}>
           <div class="testimonial-card__rating" aria-label={`${testimonial.rating} out of 5 stars`}>
             {Array.from({ length: testimonial.rating }).map(() => (
               <Icon name="lucide:star" />
@@ -62,6 +47,7 @@ const testimonials = [
 <style>
   .testimonials {
     background-color: var(--color-primary-50);
+    overflow: hidden;
   }
 
   .testimonials__header {
@@ -74,12 +60,13 @@ const testimonials = [
   .testimonials__label {
     display: inline-block;
     padding: var(--spacing-xs) var(--spacing-md);
-    background-color: var(--color-white);
-    color: var(--color-primary);
+    background-color: var(--color-primary);
+    color: var(--color-white);
     font-size: var(--font-size-sm);
     font-weight: var(--font-weight-semibold);
     border-radius: var(--radius-full);
     margin-bottom: var(--spacing-md);
+    letter-spacing: 0.025em;
   }
 
   .testimonials__title {
@@ -91,24 +78,66 @@ const testimonials = [
     color: var(--color-gray-600);
   }
 
-  .testimonials__grid {
-    display: grid;
-    gap: var(--spacing-xl);
+  .testimonials__carousel {
+    position: relative;
+    width: 100%;
+    mask-image: linear-gradient(
+      to right,
+      transparent,
+      black 5%,
+      black 95%,
+      transparent
+    );
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent,
+      black 5%,
+      black 95%,
+      transparent
+    );
   }
 
-  @media (min-width: 768px) {
-    .testimonials__grid {
-      grid-template-columns: repeat(2, 1fr);
+  .testimonials__track {
+    display: flex;
+    gap: var(--spacing-lg);
+    width: max-content;
+    animation: scroll 40s linear infinite;
+    padding: var(--spacing-sm) 0;
+  }
+
+  .testimonials__carousel:hover .testimonials__track {
+    animation-play-state: paused;
+  }
+
+  @keyframes scroll {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
     }
   }
 
-  @media (min-width: 1024px) {
-    .testimonials__grid {
-      grid-template-columns: repeat(3, 1fr);
+  /* Respect reduced motion preference */
+  @media (prefers-reduced-motion: reduce) {
+    .testimonials__track {
+      animation: none;
+      flex-wrap: wrap;
+      justify-content: center;
+      width: auto;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .testimonials__carousel {
+      mask-image: none;
+      -webkit-mask-image: none;
     }
   }
 
   .testimonial-card {
+    flex-shrink: 0;
+    width: 340px;
     background-color: var(--color-white);
     border-radius: var(--radius-xl);
     padding: var(--spacing-xl);
@@ -116,6 +145,18 @@ const testimonials = [
     display: flex;
     flex-direction: column;
     gap: var(--spacing-md);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .testimonials__carousel:hover .testimonial-card:hover {
+    transform: scale(1.02);
+    box-shadow: var(--shadow-xl);
+  }
+
+  @media (min-width: 768px) {
+    .testimonial-card {
+      width: 380px;
+    }
   }
 
   .testimonial-card__rating {
@@ -127,6 +168,7 @@ const testimonials = [
     width: 20px;
     height: 20px;
     color: var(--color-accent);
+    fill: var(--color-accent);
   }
 
   .testimonial-card__quote {

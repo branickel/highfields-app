@@ -16,9 +16,10 @@
   --color-secondary-light: #a67c52;
   --color-secondary-dark: #5c3a1c;
   
-  /* Accent Colors */
-  --color-accent: #f59e0b;
-  --color-accent-light: #fbbf24;
+  /* Accent Colors - Warm Gold/Amber */
+  --color-accent: #c9a227;
+  --color-accent-light: #d4b23d;
+  --color-accent-dark: #a88820;
   
   /* Neutral Colors */
   --color-white: #ffffff;

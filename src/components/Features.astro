@@ -43,14 +43,17 @@ const features = [
     </header>
 
     <div class="features__grid">
-      {features.map((feature) => (
-        <div class="feature">
-          <div class="feature__icon">
-            <Icon name={feature.icon} />
+      {features.map((feature, index) => (
+        <article class="feature" style={`--delay: ${index * 0.1}s`}>
+          <div class="feature__icon-wrapper">
+            <div class="feature__icon">
+              <Icon name={feature.icon} />
+            </div>
+            <div class="feature__icon-ring"></div>
           </div>
           <h3 class="feature__title">{feature.title}</h3>
           <p class="feature__description">{feature.description}</p>
-        </div>
+        </article>
       ))}
     </div>
   </div>
@@ -58,7 +61,21 @@ const features = [
 
 <style>
   .features {
-    background-color: var(--color-white);
+    background: linear-gradient(180deg, var(--color-white) 0%, var(--color-primary-50) 100%);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .features::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 1200px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--color-primary-100), transparent);
   }
 
   .features__header {
@@ -69,12 +86,13 @@ const features = [
   .features__label {
     display: inline-block;
     padding: var(--spacing-xs) var(--spacing-md);
-    background-color: var(--color-primary-100);
-    color: var(--color-primary);
+    background-color: var(--color-primary);
+    color: var(--color-white);
     font-size: var(--font-size-sm);
     font-weight: var(--font-weight-semibold);
     border-radius: var(--radius-full);
     margin-bottom: var(--spacing-md);
+    letter-spacing: 0.025em;
   }
 
   .features__title {
@@ -90,45 +108,149 @@ const features = [
   @media (min-width: 640px) {
     .features__grid {
       grid-template-columns: repeat(2, 1fr);
+      gap: var(--spacing-lg);
     }
   }
 
   @media (min-width: 1024px) {
     .features__grid {
       grid-template-columns: repeat(3, 1fr);
+      gap: var(--spacing-xl);
     }
   }
 
   .feature {
     text-align: center;
-    padding: var(--spacing-lg);
+    padding: var(--spacing-xl);
+    background: var(--color-white);
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--color-gray-100);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    cursor: default;
+  }
+
+  .feature::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: var(--radius-xl);
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    z-index: 0;
+  }
+
+  .feature:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px -12px rgba(44, 103, 92, 0.25);
+    border-color: transparent;
+  }
+
+  .feature:hover::before {
+    opacity: 1;
+  }
+
+  .feature > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  .feature__icon-wrapper {
+    position: relative;
+    display: inline-flex;
+    margin-bottom: var(--spacing-lg);
   }
 
   .feature__icon {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 56px;
-    height: 56px;
-    background-color: var(--color-primary-50);
+    width: 64px;
+    height: 64px;
+    background: linear-gradient(135deg, var(--color-primary-50) 0%, var(--color-primary-100) 100%);
     border-radius: var(--radius-full);
-    margin-bottom: var(--spacing-md);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    z-index: 1;
+  }
+
+  .feature__icon-ring {
+    position: absolute;
+    inset: -6px;
+    border-radius: var(--radius-full);
+    border: 2px dashed var(--color-primary-100);
+    opacity: 0;
+    transition: all 0.4s ease;
+    animation: none;
+  }
+
+  .feature:hover .feature__icon {
+    background: var(--color-accent);
+    transform: scale(1.1) rotate(5deg);
+  }
+
+  .feature:hover .feature__icon-ring {
+    opacity: 1;
+    border-color: rgba(255, 255, 255, 0.3);
+    animation: spin 8s linear infinite;
+  }
+
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
   }
 
   .feature__icon svg {
     width: 28px;
     height: 28px;
     color: var(--color-primary);
+    transition: all 0.4s ease;
+  }
+
+  .feature:hover .feature__icon svg {
+    color: var(--color-white);
+    transform: scale(1.1);
   }
 
   .feature__title {
     font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
     margin-bottom: var(--spacing-sm);
+    transition: color 0.4s ease;
+  }
+
+  .feature:hover .feature__title {
+    color: var(--color-white);
   }
 
   .feature__description {
     color: var(--color-gray-600);
     font-size: var(--font-size-sm);
     line-height: var(--line-height-relaxed);
+    transition: color 0.4s ease;
+  }
+
+  .feature:hover .feature__description {
+    color: rgba(255, 255, 255, 0.85);
+  }
+
+  /* Subtle entrance animation */
+  @media (prefers-reduced-motion: no-preference) {
+    .feature {
+      animation: fadeInUp 0.6s ease backwards;
+      animation-delay: var(--delay, 0s);
+    }
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 </style>
