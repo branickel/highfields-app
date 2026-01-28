@@ -251,15 +251,16 @@ img {
 }
 
 .btn--primary {
-  background-color: var(--color-primary);
-  color: var(--color-white);
-  border-color: var(--color-primary);
+  background-color: var(--color-accent);
+  color: var(--color-gray-900);
+  border-color: var(--color-accent);
+  font-weight: var(--font-weight-semibold);
 }
 
 .btn--primary:hover {
-  background-color: var(--color-primary-dark);
-  border-color: var(--color-primary-dark);
-  color: var(--color-white);
+  background-color: var(--color-accent-light);
+  border-color: var(--color-accent-light);
+  color: var(--color-gray-900);
   transform: translateY(-2px);
   box-shadow: var(--shadow-lg);
 }
