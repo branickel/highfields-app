@@ -152,6 +152,36 @@ import { Icon } from 'astro-icon/components';
             const btnLoading = submitBtn.querySelector('.btn-loading') as HTMLElement;
             const sendIcon = submitBtn.querySelector('.send-icon') as HTMLElement;
 
+            // Required fields for validation
+            const nameInput = document.getElementById('name') as HTMLInputElement;
+            const phoneInput = document.getElementById('phone') as HTMLInputElement;
+            const emailInput = document.getElementById('email') as HTMLInputElement;
+            const messageInput = document.getElementById('message') as HTMLTextAreaElement;
+            const consentInput = form.querySelector('input[name="consent"]') as HTMLInputElement;
+
+            // Function to validate form and update button state
+            function validateForm() {
+              const isValid = 
+                nameInput.value.trim().length >= 2 &&
+                phoneInput.value.trim().length >= 8 &&
+                emailInput.value.trim().includes('@') &&
+                messageInput.value.trim().length >= 10 &&
+                consentInput.checked;
+              
+              submitBtn.disabled = !isValid;
+            }
+
+            // Initial state - button disabled
+            submitBtn.disabled = true;
+
+            // Add event listeners to all required fields
+            nameInput.addEventListener('input', validateForm);
+            phoneInput.addEventListener('input', validateForm);
+            emailInput.addEventListener('input', validateForm);
+            messageInput.addEventListener('input', validateForm);
+            consentInput.addEventListener('change', validateForm);
+
+            // Form submission
             form.addEventListener('submit', async (e) => {
               e.preventDefault();
               
@@ -177,16 +207,21 @@ import { Icon } from 'astro-icon/components';
                 if (result.success) {
                   successMsg.style.display = 'flex';
                   form.style.display = 'none';
+                  // Scroll to success message
+                  successMsg.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 } else {
                   errorText.textContent = result.message || 'Please try again or call us directly at 0434 240 629.';
                   errorMsg.style.display = 'flex';
+                  // Re-enable button after error
+                  validateForm();
                 }
               } catch (error) {
                 errorText.textContent = 'Network error. Please try again or call us directly at 0434 240 629.';
                 errorMsg.style.display = 'flex';
+                // Re-enable button after error
+                validateForm();
               } finally {
-                // Reset button state
-                submitBtn.disabled = false;
+                // Reset loading state
                 btnText.style.display = 'inline';
                 sendIcon.style.display = 'inline';
                 btnLoading.style.display = 'none';

@@ -9,19 +9,29 @@ export const POST: APIRoute = async ({ request }) => {
   try {
     const formData = await request.formData();
     
-    const name = formData.get('name')?.toString() || '';
-    const email = formData.get('email')?.toString() || '';
-    const phone = formData.get('phone')?.toString() || '';
+    // Parse form data
+    const name = formData.get('name')?.toString().trim() || '';
+    const email = formData.get('email')?.toString().trim() || '';
+    const phone = formData.get('phone')?.toString().trim() || '';
     const service = formData.get('service')?.toString() || 'Not specified';
     const address = formData.get('address')?.toString() || 'Not provided';
-    const message = formData.get('message')?.toString() || '';
+    const message = formData.get('message')?.toString().trim() || '';
+    const consent = formData.get('consent')?.toString() || '';
 
-    // Validate required fields
-    if (!name || !email || !phone || !message) {
+    // Validation
+    const errors: string[] = [];
+    
+    if (name.length < 2) errors.push('Name must be at least 2 characters');
+    if (!email.includes('@') || email.length < 5) errors.push('Please enter a valid email address');
+    if (phone.length < 8) errors.push('Please enter a valid phone number');
+    if (message.length < 10) errors.push('Message must be at least 10 characters');
+    if (consent !== 'on') errors.push('You must agree to be contacted');
+    
+    if (errors.length > 0) {
       return new Response(
         JSON.stringify({ 
           success: false, 
-          message: 'Please fill in all required fields.' 
+          message: errors.join(', ')
         }),
         { 
           status: 400,
@@ -35,14 +45,16 @@ export const POST: APIRoute = async ({ request }) => {
       'pest-control': 'General Pest Control',
       'lawn-maintenance': 'Lawn Maintenance',
       'garden-care': 'Garden Care',
-      '': 'Not specified'
+      'other': 'Other / Multiple Services',
+      '': 'Not specified',
+      'Not specified': 'Not specified'
     };
 
     const serviceName = serviceNames[service] || service;
 
     // Send email to business owner
     const { error } = await resend.emails.send({
-      from: 'Highfields Website <noreply@highfieldspestandlawn.com.au>',
+      from: 'Highfields Website <josh@highfieldspestandlawn.com.au>',
       to: ['HighfieldsLGM@outlook.com'],
       replyTo: email,
       subject: `New Enquiry: ${serviceName} - ${name}`,
