@@ -31,7 +31,25 @@ import { Icon } from 'astro-icon/components';
           <h2 class="contact__form-title">Send Us a Message</h2>
           <p class="contact__form-subtitle">Fill out the form below and we'll be in touch shortly.</p>
           
-          <form class="contact-form" id="contact-form" action="#" method="POST">
+          <!-- Success Message -->
+          <div id="form-success" class="contact-form__message contact-form__message--success" style="display: none;">
+            <Icon name="lucide:check-circle" />
+            <div>
+              <h3>Message Sent Successfully!</h3>
+              <p>Thank you for your enquiry. We'll be in touch within 24 hours.</p>
+            </div>
+          </div>
+
+          <!-- Error Message -->
+          <div id="form-error" class="contact-form__message contact-form__message--error" style="display: none;">
+            <Icon name="lucide:alert-circle" />
+            <div>
+              <h3>Something went wrong</h3>
+              <p id="error-text">Please try again or call us directly at 0434 240 629.</p>
+            </div>
+          </div>
+
+          <form class="contact-form" id="contact-form" action="/api/contact" method="POST">
             <div class="contact-form__row">
               <div class="contact-form__field">
                 <label for="name" class="contact-form__label">Full Name <span class="required">*</span></label>
@@ -114,11 +132,67 @@ import { Icon } from 'astro-icon/components';
               </label>
             </div>
 
-            <button type="submit" class="btn btn--primary btn--lg contact-form__submit">
-              <Icon name="lucide:send" />
-              Send Message
+            <button type="submit" class="btn btn--primary btn--lg contact-form__submit" id="submit-btn">
+              <Icon name="lucide:send" class="send-icon" />
+              <span class="btn-text">Send Message</span>
+              <span class="btn-loading" style="display: none;">
+                <Icon name="lucide:loader-2" class="spin" />
+                Sending...
+              </span>
             </button>
           </form>
+
+          <script>
+            const form = document.getElementById('contact-form') as HTMLFormElement;
+            const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement;
+            const successMsg = document.getElementById('form-success') as HTMLElement;
+            const errorMsg = document.getElementById('form-error') as HTMLElement;
+            const errorText = document.getElementById('error-text') as HTMLElement;
+            const btnText = submitBtn.querySelector('.btn-text') as HTMLElement;
+            const btnLoading = submitBtn.querySelector('.btn-loading') as HTMLElement;
+            const sendIcon = submitBtn.querySelector('.send-icon') as HTMLElement;
+
+            form.addEventListener('submit', async (e) => {
+              e.preventDefault();
+              
+              // Hide any previous messages
+              successMsg.style.display = 'none';
+              errorMsg.style.display = 'none';
+              
+              // Show loading state
+              submitBtn.disabled = true;
+              btnText.style.display = 'none';
+              sendIcon.style.display = 'none';
+              btnLoading.style.display = 'inline-flex';
+
+              try {
+                const formData = new FormData(form);
+                const response = await fetch('/api/contact', {
+                  method: 'POST',
+                  body: formData,
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                  successMsg.style.display = 'flex';
+                  form.style.display = 'none';
+                } else {
+                  errorText.textContent = result.message || 'Please try again or call us directly at 0434 240 629.';
+                  errorMsg.style.display = 'flex';
+                }
+              } catch (error) {
+                errorText.textContent = 'Network error. Please try again or call us directly at 0434 240 629.';
+                errorMsg.style.display = 'flex';
+              } finally {
+                // Reset button state
+                submitBtn.disabled = false;
+                btnText.style.display = 'inline';
+                sendIcon.style.display = 'inline';
+                btnLoading.style.display = 'none';
+              }
+            });
+          </script>
         </div>
 
         <!-- Contact Info -->
@@ -394,6 +468,72 @@ import { Icon } from 'astro-icon/components';
     height: 20px;
   }
 
+  .contact-form__submit:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+
+  .contact-form__submit .btn-loading {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+  }
+
+  .contact-form__submit .spin {
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  /* Form Messages */
+  .contact-form__message {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--spacing-md);
+    padding: var(--spacing-xl);
+    border-radius: var(--radius-xl);
+    margin-bottom: var(--spacing-xl);
+  }
+
+  .contact-form__message svg {
+    width: 32px;
+    height: 32px;
+    flex-shrink: 0;
+  }
+
+  .contact-form__message h3 {
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--spacing-xs);
+  }
+
+  .contact-form__message p {
+    margin: 0;
+    opacity: 0.9;
+  }
+
+  .contact-form__message--success {
+    background-color: #ecfdf5;
+    border: 1px solid #10b981;
+    color: #065f46;
+  }
+
+  .contact-form__message--success svg {
+    color: #10b981;
+  }
+
+  .contact-form__message--error {
+    background-color: #fef2f2;
+    border: 1px solid #ef4444;
+    color: #991b1b;
+  }
+
+  .contact-form__message--error svg {
+    color: #ef4444;
+  }
+
   /* Contact Info */
   .contact__info {
     display: flex;
@@ -526,26 +666,3 @@ import { Icon } from 'astro-icon/components';
   }
 
 </style>
-
-<script>
-  document.addEventListener('astro:page-load', () => {
-    const form = document.getElementById('contact-form') as HTMLFormElement;
-    
-    if (form) {
-      form.addEventListener('submit', (e) => {
-        e.preventDefault();
-        
-        // Get form data
-        const formData = new FormData(form);
-        const data = Object.fromEntries(formData.entries());
-        
-        // Here you would typically send the data to your backend
-        console.log('Form submitted:', data);
-        
-        // Show success message (in production, handle actual form submission)
-        alert('Thank you for your message! We will be in touch within 24 hours.');
-        form.reset();
-      });
-    }
-  });
-</script>
