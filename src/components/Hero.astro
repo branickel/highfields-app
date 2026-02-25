@@ -4,12 +4,14 @@ import heroImage from '../assets/image000000.jpeg';
 
 interface Props {
   title?: string;
+  slogan?: string;
   subtitle?: string;
   showCTA?: boolean;
 }
 
 const {
-  title = 'Expert Pest Control & Lawn Care',
+  title = 'Prompt & Professional',
+  slogan = 'Expert Pest Control & Lawn Care',
   subtitle = 'Highfields Pest & Lawn Maintenance provides expert, locally-owned solutions to keep your property pristine and protected. As a fully licensed operator, we deliver professional pest control services and premium lawn care.',
   showCTA = true,
 } = Astro.props;
@@ -35,6 +37,8 @@ const {
       </span>
       
       <h1 class="hero__title">{title}</h1>
+      
+      <p class="hero__slogan">{slogan}</p>
       
       <p class="hero__subtitle">{subtitle}</p>
 
@@ -184,8 +188,17 @@ const {
     font-weight: var(--font-weight-extrabold);
     line-height: 1.1;
     letter-spacing: -0.02em;
-    margin-bottom: var(--spacing-lg);
+    margin-bottom: var(--spacing-sm);
     color: var(--color-white);
+  }
+
+  .hero__slogan {
+    font-size: clamp(1.5rem, 3vw + 0.5rem, 2.25rem);
+    font-weight: var(--font-weight-semibold);
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    margin-bottom: var(--spacing-lg);
+    color: var(--color-accent);
   }
 
   .hero__subtitle {
