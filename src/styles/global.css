@@ -4,6 +4,8 @@
 
 /* CSS Custom Properties */
 :root {
+  color-scheme: light only;
+
   /* Primary Colors - Teal/Forest green from brand */
   --color-primary: #2c675c;
   --color-primary-light: #3d8577;
