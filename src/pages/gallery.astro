@@ -1,0 +1,714 @@
+---
+import fs from 'node:fs';
+import path from 'node:path';
+import Layout from '../layouts/Layout.astro';
+import CTA from '../components/CTA.astro';
+import { Icon } from 'astro-icon/components';
+
+interface GalleryPair {
+  id: string;
+  before: string;
+  after: string;
+}
+
+const galleryDir = path.join(process.cwd(), 'public', 'gallery');
+let pairs: GalleryPair[] = [];
+
+if (fs.existsSync(galleryDir)) {
+  const files = fs.readdirSync(galleryDir);
+  const map = new Map<string, { before?: string; after?: string }>();
+
+  for (const file of files) {
+    const match = file.match(/^(\d+)([AB])\.(jpe?g|png|webp)$/i);
+    if (match) {
+      const [, id, type, ext] = match;
+      const fullName = file;
+      const entry = map.get(id) ?? {};
+      if (type.toUpperCase() === 'B') entry.before = `/gallery/${fullName}`;
+      if (type.toUpperCase() === 'A') entry.after = `/gallery/${fullName}`;
+      map.set(id, entry);
+    }
+  }
+
+  pairs = Array.from(map.entries())
+    .filter(([, e]) => e.before && e.after)
+    .map(([id, e]) => ({
+      id,
+      before: e.before!,
+      after: e.after!,
+    }))
+    .sort((a, b) => parseInt(a.id) - parseInt(b.id));
+}
+---
+
+<Layout
+  title="Gallery"
+  description="See the results of our professional pest control, lawn maintenance, and garden care services. Before and after photos showcase our quality work."
+>
+  <section class="page-hero">
+    <div class="page-hero__bg">
+      <div class="page-hero__gradient"></div>
+      <div class="page-hero__pattern"></div>
+    </div>
+    <div class="container page-hero__container">
+      <span class="page-hero__label">Our Work</span>
+      <h1 class="page-hero__title" transition:name="page-title">Before & After Gallery</h1>
+      <p class="page-hero__subtitle">
+        See the difference our professional services make. Drag the slider to compare before and after.
+      </p>
+    </div>
+  </section>
+
+  <section class="gallery section">
+    <div class="container">
+      {pairs.length === 0 ? (
+        <div class="gallery__empty">
+          <Icon name="lucide:image-off" />
+          <p>No before/after pairs found. Add images to <code>public/gallery/</code> named like 1B.jpeg (before) and 1A.jpeg (after).</p>
+        </div>
+      ) : (
+        <div class="gallery__grid">
+          {pairs.map((pair, i) => (
+            <article class="gallery-card" data-pair-index={i} data-pair-id={pair.id} data-before={pair.before} data-after={pair.after}>
+              <button type="button" class="gallery-card__trigger" aria-label={`View before and after - Job ${pair.id}`}>
+                <img src={pair.after} alt={`Job ${pair.id} - Before & After`} loading={i === 0 ? 'eager' : 'lazy'} decoding="async" width="800" height="600" fetchPriority={i === 0 ? 'high' : undefined} />
+                <span class="gallery-card__hint">
+                <Icon name="lucide:expand" />
+                Click to view fullscreen
+              </span>
+              </button>
+            </article>
+          ))}
+        </div>
+      )}
+    </div>
+  </section>
+
+  <!-- Fullscreen slider modal - outside container for correct viewport sizing -->
+  <div class="gallery-fullscreen" id="gallery-fullscreen" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Before and after comparison">
+    <button type="button" class="gallery-fullscreen__close" aria-label="Close">
+      <Icon name="lucide:x" />
+    </button>
+    {pairs.length > 1 && (
+      <>
+        <button type="button" class="gallery-fullscreen__nav gallery-fullscreen__nav--prev" aria-label="Previous comparison">
+          <Icon name="lucide:chevron-left" />
+        </button>
+        <button type="button" class="gallery-fullscreen__nav gallery-fullscreen__nav--next" aria-label="Next comparison">
+          <Icon name="lucide:chevron-right" />
+        </button>
+      </>
+    )}
+    <div class="gallery-fullscreen__content">
+      <div class="gallery-fullscreen__compare" data-fullscreen-compare>
+        <div class="gallery-fullscreen__after">
+          <img id="fullscreen-after" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="After" />
+          <span class="gallery-fullscreen__badge gallery-fullscreen__badge--after">After</span>
+        </div>
+        <div class="gallery-fullscreen__before" data-fullscreen-before>
+          <img id="fullscreen-before" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Before" />
+          <span class="gallery-fullscreen__badge gallery-fullscreen__badge--before">Before</span>
+        </div>
+        <div class="gallery-fullscreen__slider" data-fullscreen-slider>
+          <div class="gallery-fullscreen__slider-line"></div>
+          <div class="gallery-fullscreen__slider-handle">
+            <Icon name="lucide:chevrons-left-right" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <CTA
+    title="Want Results Like These?"
+    subtitle="Contact us for a free quote and let us transform your property."
+  />
+</Layout>
+
+<style>
+  .page-hero {
+    position: relative;
+    padding-top: 140px;
+    padding-bottom: var(--spacing-4xl);
+    overflow: hidden;
+  }
+
+  @media (min-width: 768px) {
+    .page-hero {
+      padding-top: 160px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .page-hero {
+      padding-top: 180px;
+    }
+  }
+
+  .page-hero__bg {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+  }
+
+  .page-hero__gradient {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+  }
+
+  .page-hero__pattern {
+    position: absolute;
+    inset: 0;
+    opacity: 0.1;
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+
+  .page-hero__container {
+    text-align: center;
+    color: var(--color-white);
+  }
+
+  .page-hero__label {
+    display: inline-block;
+    padding: var(--spacing-xs) var(--spacing-md);
+    background-color: rgba(255, 255, 255, 0.15);
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    margin-bottom: var(--spacing-md);
+  }
+
+  .page-hero__title {
+    color: var(--color-white);
+    margin-bottom: var(--spacing-md);
+  }
+
+  .page-hero__subtitle {
+    font-size: var(--font-size-xl);
+    opacity: 0.9;
+    max-width: 600px;
+    margin-inline: auto;
+  }
+
+  .gallery__grid {
+    display: grid;
+    gap: var(--spacing-xl);
+  }
+
+  @media (min-width: 768px) {
+    .gallery__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1200px) {
+    .gallery__grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .gallery__empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-md);
+    padding: var(--spacing-4xl) var(--spacing-xl);
+    color: var(--color-gray-500);
+    text-align: center;
+  }
+
+  .gallery__empty svg {
+    width: 48px;
+    height: 48px;
+  }
+
+  .gallery__empty code {
+    font-size: var(--font-size-sm);
+    background: var(--color-gray-100);
+    padding: 2px 8px;
+    border-radius: var(--radius-sm);
+  }
+
+  .gallery-card {
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    background-color: var(--color-white);
+    box-shadow: var(--shadow-md);
+  }
+
+  .gallery-card:hover {
+    box-shadow: var(--shadow-xl);
+  }
+
+  .gallery-card__trigger {
+    display: block;
+    width: 100%;
+    padding: 0;
+    border: none;
+    background: none;
+    cursor: pointer;
+    position: relative;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+  }
+
+  .gallery-card__trigger img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform var(--transition-base);
+  }
+
+  .gallery-card__trigger:hover img {
+    transform: scale(1.05);
+  }
+
+  .gallery-card__hint {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-sm);
+    background-color: rgba(0, 0, 0, 0.4);
+    color: var(--color-white);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    opacity: 0;
+    transition: opacity var(--transition-fast);
+  }
+
+  .gallery-card__trigger:hover .gallery-card__hint {
+    opacity: 1;
+  }
+
+  .gallery-card__hint svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  /* Fullscreen modal - use 100vw/vh to ensure viewport fill (View Transitions can affect fixed) */
+  .gallery-fullscreen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 99999;
+    background-color: #000;
+    display: flex;
+    align-items: stretch;
+    justify-content: stretch;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity var(--transition-base), visibility var(--transition-base);
+  }
+
+  .gallery-fullscreen[aria-hidden="false"] {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  /* Prevent green focus/selection/tap overlay during slider interaction */
+  .gallery-fullscreen :focus {
+    outline: none;
+  }
+  .gallery-fullscreen :focus-visible {
+    outline: none;
+  }
+
+  .gallery-fullscreen__close {
+    position: fixed;
+    top: var(--spacing-lg);
+    right: var(--spacing-lg);
+    z-index: 10;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.65);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: var(--radius-full);
+    color: var(--color-white);
+    cursor: pointer;
+    transition: background-color var(--transition-fast), border-color var(--transition-fast);
+  }
+
+  .gallery-fullscreen__close:hover {
+    background-color: rgba(0, 0, 0, 0.85);
+    border-color: rgba(255, 255, 255, 0.5);
+  }
+
+  .gallery-fullscreen__close svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .gallery-fullscreen__nav {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.65);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: var(--radius-full);
+    color: var(--color-white);
+    cursor: pointer;
+    transition: background-color var(--transition-fast), border-color var(--transition-fast);
+  }
+
+  .gallery-fullscreen__nav:hover {
+    background-color: rgba(0, 0, 0, 0.85);
+    border-color: rgba(255, 255, 255, 0.5);
+  }
+
+  .gallery-fullscreen__nav svg {
+    width: 28px;
+    height: 28px;
+  }
+
+  .gallery-fullscreen__nav--prev {
+    left: var(--spacing-lg);
+  }
+
+  .gallery-fullscreen__nav--next {
+    right: var(--spacing-lg);
+  }
+
+  .gallery-fullscreen__content {
+    flex: 1;
+    display: flex;
+    padding: 0;
+    min-width: 0;
+    min-height: 0;
+  }
+
+  .gallery-fullscreen__compare {
+    position: relative;
+    flex: 1;
+    width: 100%;
+    min-width: 0;
+    min-height: 0;
+    overflow: hidden;
+    cursor: ew-resize;
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: none;
+    outline: none;
+  }
+
+  .gallery-fullscreen__compare * {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .gallery-fullscreen__compare::selection,
+  .gallery-fullscreen__compare *::selection {
+    background: transparent;
+    color: inherit;
+  }
+
+  .gallery-fullscreen__after,
+  .gallery-fullscreen__before {
+    position: absolute;
+    inset: 0;
+    contain: layout paint;
+    backface-visibility: hidden;
+  }
+
+  .gallery-fullscreen__after img,
+  .gallery-fullscreen__before img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .gallery-fullscreen__before {
+    clip-path: inset(0 50% 0 0);
+  }
+
+  .gallery-fullscreen__badge {
+    position: absolute;
+    top: var(--spacing-md);
+    padding: 8px 16px;
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    border-radius: var(--radius-full);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    pointer-events: none;
+  }
+
+  .gallery-fullscreen__badge--before {
+    left: var(--spacing-md);
+    background-color: rgba(0, 0, 0, 0.7);
+    color: var(--color-white);
+  }
+
+  .gallery-fullscreen__badge--after {
+    right: 5rem; /* Clear space for close button (48px + spacing) */
+    background-color: var(--color-primary);
+    color: var(--color-white);
+  }
+
+  .gallery-fullscreen__slider {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 6px;
+    transform: translateX(-50%);
+    z-index: 10;
+    pointer-events: none;
+  }
+
+  .gallery-fullscreen__slider-line {
+    position: absolute;
+    inset: 0;
+    background-color: var(--color-white);
+    box-shadow: 0 0 16px rgba(0, 0, 0, 0.5);
+  }
+
+  .gallery-fullscreen__slider-handle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 56px;
+    height: 56px;
+    background-color: var(--color-white);
+    border-radius: var(--radius-full);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+    pointer-events: auto;
+    cursor: ew-resize;
+    transition: transform var(--transition-fast);
+  }
+
+  .gallery-fullscreen__slider-handle:hover {
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+
+  .gallery-fullscreen__slider-handle svg {
+    width: 28px;
+    height: 28px;
+    color: #333;
+  }
+
+  .gallery-card__compare {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    cursor: ew-resize;
+    user-select: none;
+  }
+
+  .gallery-card__after,
+  .gallery-card__before {
+    position: absolute;
+    inset: 0;
+  }
+
+  .gallery-card__after img,
+  .gallery-card__before img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .gallery-card__before {
+    clip-path: inset(0 50% 0 0);
+  }
+
+  .gallery-card__badge {
+    position: absolute;
+    top: var(--spacing-sm);
+    padding: 4px 12px;
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-semibold);
+    border-radius: var(--radius-full);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    pointer-events: none;
+  }
+
+  .gallery-card__badge--before {
+    left: var(--spacing-sm);
+    background-color: rgba(0, 0, 0, 0.6);
+    color: var(--color-white);
+  }
+
+  .gallery-card__badge--after {
+    right: var(--spacing-sm);
+    background-color: var(--color-primary);
+    color: var(--color-white);
+  }
+
+  .gallery-card__slider {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 4px;
+    transform: translateX(-50%);
+    z-index: 10;
+    pointer-events: none;
+  }
+
+  .gallery-card__slider-line {
+    position: absolute;
+    inset: 0;
+    background-color: var(--color-white);
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+  }
+
+  .gallery-card__slider-handle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40px;
+    height: 40px;
+    background-color: var(--color-white);
+    border-radius: var(--radius-full);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+    pointer-events: auto;
+    cursor: ew-resize;
+    transition: transform var(--transition-fast);
+  }
+
+  .gallery-card__slider-handle:hover {
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+
+  .gallery-card__slider-handle svg {
+    width: 20px;
+    height: 20px;
+    color: var(--color-primary);
+  }
+</style>
+
+<script>
+  document.addEventListener('astro:page-load', () => {
+    const fullscreen = document.getElementById('gallery-fullscreen');
+    const closeBtn = fullscreen?.querySelector<HTMLButtonElement>('.gallery-fullscreen__close');
+    const prevBtn = fullscreen?.querySelector<HTMLButtonElement>('.gallery-fullscreen__nav--prev');
+    const nextBtn = fullscreen?.querySelector<HTMLButtonElement>('.gallery-fullscreen__nav--next');
+    const afterImg = document.getElementById('fullscreen-after') as HTMLImageElement | null;
+    const beforeImg = document.getElementById('fullscreen-before') as HTMLImageElement | null;
+    const compare = fullscreen?.querySelector<HTMLElement>('[data-fullscreen-compare]');
+    const beforeEl = compare?.querySelector<HTMLElement>('[data-fullscreen-before]');
+    const sliderEl = compare?.querySelector<HTMLElement>('[data-fullscreen-slider]');
+
+    const cards = Array.from(document.querySelectorAll<HTMLElement>('.gallery-card')).sort(
+      (a, b) => parseInt(a.dataset.pairIndex ?? '0', 10) - parseInt(b.dataset.pairIndex ?? '0', 10)
+    );
+    const pairs: { before: string; after: string }[] = cards
+      .map((c) => {
+        const b = c.dataset.before, a = c.dataset.after;
+        return b && a ? { before: b, after: a } : null;
+      })
+      .filter((p): p is { before: string; after: string } => p !== null);
+
+    let currentIndex = 0;
+
+    function getPairUrls(card: HTMLElement): { before: string; after: string } | null {
+      const before = card.dataset.before;
+      const after = card.dataset.after;
+      return before && after ? { before, after } : null;
+    }
+
+    function initFullscreenSlider() {
+      if (!compare || !beforeEl || !sliderEl) return;
+      beforeEl.style.clipPath = 'inset(0 50% 0 0)';
+      sliderEl.style.left = '50%';
+
+      const updatePosition = (x: number) => {
+        const rect = compare.getBoundingClientRect();
+        const pct = Math.max(0, Math.min(100, ((x - rect.left) / rect.width) * 100));
+        beforeEl!.style.clipPath = `inset(0 ${100 - pct}% 0 0)`;
+        sliderEl!.style.left = `${pct}%`;
+      };
+
+      const onPointerDown = (e: PointerEvent) => {
+        compare.setPointerCapture(e.pointerId);
+        updatePosition(e.clientX);
+      };
+      const onPointerMove = (e: PointerEvent) => {
+        if (e.buttons === 1) updatePosition(e.clientX);
+      };
+
+      compare.removeEventListener('pointerdown', onPointerDown);
+      compare.removeEventListener('pointermove', onPointerMove);
+      compare.addEventListener('pointerdown', onPointerDown);
+      compare.addEventListener('pointermove', onPointerMove);
+    }
+
+    function toAbs(p: string) {
+      return p.startsWith('/') ? new URL(p, window.location.origin).href : p;
+    }
+
+    function showPair(index: number) {
+      if (!fullscreen || !afterImg || !beforeImg || index < 0 || index >= pairs.length) return;
+      currentIndex = index;
+      const { before, after } = pairs[index];
+      afterImg.src = toAbs(after);
+      beforeImg.src = toAbs(before);
+      requestAnimationFrame(() => initFullscreenSlider());
+
+      if (prevBtn) prevBtn.style.visibility = index > 0 ? 'visible' : 'hidden';
+      if (nextBtn) nextBtn.style.visibility = index < pairs.length - 1 ? 'visible' : 'hidden';
+    }
+
+    function openFullscreen(index: number) {
+      if (!fullscreen || pairs.length === 0) return;
+      fullscreen.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+      showPair(index);
+    }
+
+    function closeFullscreen() {
+      if (!fullscreen) return;
+      fullscreen.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+
+    cards.forEach((card, index) => {
+      const urls = getPairUrls(card);
+      if (!urls) return;
+      card.querySelector('button')?.addEventListener('click', () => openFullscreen(index));
+    });
+
+    closeBtn?.addEventListener('click', closeFullscreen);
+    prevBtn?.addEventListener('click', (e) => { e.stopPropagation(); if (currentIndex > 0) showPair(currentIndex - 1); });
+    nextBtn?.addEventListener('click', (e) => { e.stopPropagation(); if (currentIndex < pairs.length - 1) showPair(currentIndex + 1); });
+
+    document.addEventListener('keydown', (e) => {
+      if (fullscreen?.getAttribute('aria-hidden') !== 'false') return;
+      if (e.key === 'Escape') closeFullscreen();
+      if (e.key === 'ArrowLeft' && currentIndex > 0) showPair(currentIndex - 1);
+      if (e.key === 'ArrowRight' && currentIndex < pairs.length - 1) showPair(currentIndex + 1);
+    });
+
+    fullscreen?.addEventListener('click', (e) => {
+      if (e.target === fullscreen) closeFullscreen();
+    });
+  });
+</script>

@@ -1,37 +1,5 @@
 ---
-import { Icon } from 'astro-icon/components';
-
-interface Service {
-  id: string;
-  icon: string;
-  title: string;
-  description: string;
-  features: string[];
-}
-
-const services: Service[] = [
-  {
-    id: 'pest-control',
-    icon: 'lucide:bug',
-    title: 'General Pest Control',
-    description: 'Comprehensive pest management solutions for your home and business. We eliminate and prevent infestations of all common pests.',
-    features: ['Cockroaches & Spiders', 'Silverfish', 'Mice & Rats', 'Fleas, Ticks & Wasps'],
-  },
-  {
-    id: 'lawn-care',
-    icon: 'lucide:trees',
-    title: 'Lawn Maintenance',
-    description: 'Professional lawn care services to keep your grass healthy, green, and perfectly manicured all year round.',
-    features: ['Lawn Mowing', 'Hedging & Edging', 'Pruning & Mulching', 'Yard Cleanup'],
-  },
-  {
-    id: 'garden-care',
-    icon: 'lucide:flower-2',
-    title: 'Garden Care',
-    description: 'Expert garden maintenance to keep your outdoor spaces beautiful and thriving through every season.',
-    features: ['Hedge Trimming', 'Mulching', 'Garden Bed Care', 'Seasonal Cleanup'],
-  },
-];
+import ImageCard from './ImageCard.astro';
 ---
 
 <section class="services section" id="services">
@@ -44,28 +12,46 @@ const services: Service[] = [
       </p>
     </header>
 
-    <div class="services__grid">
-      {services.map((service) => (
-        <article class="service-card" id={service.id}>
-          <div class="service-card__icon">
-            <Icon name={service.icon} />
-          </div>
-          <h3 class="service-card__title">{service.title}</h3>
-          <p class="service-card__description">{service.description}</p>
-          <ul class="service-card__features">
-            {service.features.map((feature) => (
-              <li class="service-card__feature">
-                <Icon name="lucide:check" />
-                {feature}
-              </li>
-            ))}
-          </ul>
-          <a href="/contact" class="service-card__link">
-            Get a Quote
-            <Icon name="lucide:arrow-right" />
-          </a>
-        </article>
-      ))}
+    <div class="services__pest-control" id="pest-control">
+      <ImageCard
+        image="/internal-treatment.webp"
+        imageAlt="Professional pest control technician performing internal treatment with protective gear"
+        icon="lucide:bug"
+        title="General Pest Control"
+        description="Comprehensive pest management solutions for your home and business. We eliminate and prevent infestations of all common pests."
+        features={['Cockroaches & Spiders', 'Silverfish', 'Mice & Rats', 'Fleas, Ticks & Wasps']}
+        ctaText="Get a Quote"
+        ctaLink="/contact"
+        reverse={false}
+      />
+    </div>
+
+    <div class="services__lawn-care" id="lawn-care">
+      <ImageCard
+        image="/hedge.webp"
+        imageAlt="Professional lawn care and hedge trimming services"
+        icon="lucide:trees"
+        title="Lawn Maintenance"
+        description="Professional lawn care services to keep your grass healthy, green, and perfectly manicured all year round."
+        features={['Lawn Mowing', 'Hedging & Edging', 'Pruning & Mulching', 'Yard Cleanup']}
+        ctaText="Get a Quote"
+        ctaLink="/contact"
+        reverse={true}
+      />
+    </div>
+
+    <div class="services__garden-care" id="garden-care">
+      <ImageCard
+        image="/gardens.webp"
+        imageAlt="Beautiful garden care and landscaping"
+        icon="lucide:flower-2"
+        title="Garden Care"
+        description="Expert garden maintenance to keep your outdoor spaces beautiful and thriving through every season."
+        features={['Hedge Trimming', 'Mulching', 'Garden Bed Care', 'Seasonal Cleanup']}
+        ctaText="Get a Quote"
+        ctaLink="/contact"
+        reverse={false}
+      />
     </div>
   </div>
 </section>
@@ -102,110 +88,15 @@ const services: Service[] = [
     color: var(--color-gray-600);
   }
 
-  .services__grid {
-    display: grid;
-    gap: var(--spacing-xl);
+  .services__pest-control {
+    margin-bottom: var(--spacing-3xl);
   }
 
-  @media (min-width: 768px) {
-    .services__grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
+  .services__lawn-care {
+    margin-bottom: var(--spacing-3xl);
   }
 
-  @media (min-width: 1024px) {
-    .services__grid {
-      grid-template-columns: repeat(3, 1fr);
-    }
-  }
-
-  .service-card {
-    background-color: var(--color-white);
-    border-radius: var(--radius-xl);
-    padding: var(--spacing-xl);
-    box-shadow: var(--shadow-md);
-    transition: all var(--transition-base);
-    display: flex;
-    flex-direction: column;
-  }
-
-  .service-card:hover {
-    transform: translateY(-5px);
-    box-shadow: var(--shadow-xl);
-  }
-
-  .service-card__icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 64px;
-    height: 64px;
-    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
-    border-radius: var(--radius-lg);
-    margin-bottom: var(--spacing-lg);
-  }
-
-  .service-card__icon svg {
-    width: 32px;
-    height: 32px;
-    color: var(--color-white);
-  }
-
-  .service-card__title {
-    font-size: var(--font-size-xl);
-    margin-bottom: var(--spacing-sm);
-  }
-
-  .service-card__description {
-    color: var(--color-gray-600);
-    margin-bottom: var(--spacing-lg);
-    flex-grow: 1;
-  }
-
-  .service-card__features {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-sm);
-    margin-bottom: var(--spacing-lg);
-  }
-
-  .service-card__feature {
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-sm);
-    font-size: var(--font-size-sm);
-    color: var(--color-gray-700);
-  }
-
-  .service-card__feature svg {
-    width: 18px;
-    height: 18px;
-    color: var(--color-success);
-    flex-shrink: 0;
-  }
-
-  .service-card__link {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--spacing-sm);
-    color: var(--color-primary);
-    font-weight: var(--font-weight-semibold);
-    text-decoration: none;
-    transition: gap var(--transition-base);
-  }
-
-  .service-card__link:hover {
-    gap: var(--spacing-md);
-  }
-
-  .service-card__link svg {
-    width: 18px;
-    height: 18px;
-    transition: transform var(--transition-base);
-  }
-
-  .service-card__link:hover svg {
-    transform: translateX(4px);
+  .services__garden-care {
+    margin-bottom: 0;
   }
 </style>

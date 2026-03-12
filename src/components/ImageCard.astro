@@ -1,0 +1,190 @@
+---
+import { Icon } from 'astro-icon/components';
+
+interface Props {
+  image: string;
+  imageAlt?: string;
+  title: string;
+  description: string;
+  features?: string[];
+  icon?: string;
+  ctaText?: string;
+  ctaLink?: string;
+  reverse?: boolean;
+}
+
+const {
+  image,
+  imageAlt = '',
+  title,
+  description,
+  features = [],
+  icon = 'lucide:sparkles',
+  ctaText = 'Get a Quote',
+  ctaLink = '/contact',
+  reverse = false,
+} = Astro.props;
+---
+
+<div class:list={['image-card', { 'image-card--reverse': reverse }]}>
+  <div class="image-card__media">
+    <img
+      src={image}
+      alt={imageAlt || title}
+      loading="lazy"
+      decoding="async"
+      width="600"
+      height="400"
+    />
+  </div>
+  <div class="image-card__content">
+    <div class="image-card__icon">
+      <Icon name={icon} />
+    </div>
+    <h3 class="image-card__title">{title}</h3>
+    <p class="image-card__description">{description}</p>
+    {features.length > 0 && (
+      <ul class="image-card__features">
+        {features.map((feature) => (
+          <li class="image-card__feature">
+            <Icon name="lucide:check" />
+            {feature}
+          </li>
+        ))}
+      </ul>
+    )}
+    <a href={ctaLink} class="image-card__link">
+      {ctaText}
+      <Icon name="lucide:arrow-right" />
+    </a>
+  </div>
+</div>
+
+<style>
+  /* Single card: one component with two columns */
+  .image-card {
+    display: grid;
+    gap: 0;
+    align-items: stretch;
+    background-color: var(--color-white);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-md);
+    overflow: hidden;
+    transition: box-shadow var(--transition-base);
+  }
+
+  .image-card:hover {
+    box-shadow: var(--shadow-xl);
+  }
+
+  @media (min-width: 1024px) {
+    .image-card {
+      grid-template-columns: 1fr 1fr; /* 50/50 split */
+    }
+
+    .image-card--reverse {
+      direction: rtl;
+    }
+
+    .image-card--reverse > * {
+      direction: ltr;
+    }
+  }
+
+  .image-card__media {
+    overflow: hidden;
+    min-height: 240px;
+  }
+
+  .image-card__media img {
+    width: 100%;
+    height: 100%;
+    min-height: 240px;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+  }
+
+  .image-card__content {
+    display: flex;
+    flex-direction: column;
+    padding: var(--spacing-xl);
+    justify-content: center;
+  }
+
+  .image-card__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 64px;
+    height: 64px;
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+    border-radius: var(--radius-lg);
+    margin-bottom: var(--spacing-lg);
+  }
+
+  .image-card__icon svg {
+    width: 32px;
+    height: 32px;
+    color: var(--color-white);
+  }
+
+  .image-card__title {
+    font-size: var(--font-size-xl);
+    margin-bottom: var(--spacing-sm);
+  }
+
+  .image-card__description {
+    color: var(--color-gray-600);
+    margin-bottom: var(--spacing-lg);
+    line-height: var(--line-height-relaxed);
+  }
+
+  .image-card__features {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-lg);
+  }
+
+  .image-card__feature {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    font-size: var(--font-size-sm);
+    color: var(--color-gray-700);
+  }
+
+  .image-card__feature svg {
+    width: 18px;
+    height: 18px;
+    color: var(--color-success);
+    flex-shrink: 0;
+  }
+
+  .image-card__link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    color: var(--color-primary);
+    font-weight: var(--font-weight-semibold);
+    text-decoration: none;
+    transition: gap var(--transition-base);
+  }
+
+  .image-card__link:hover {
+    gap: var(--spacing-md);
+    color: var(--color-primary-dark);
+  }
+
+  .image-card__link svg {
+    width: 18px;
+    height: 18px;
+    transition: transform var(--transition-base);
+  }
+
+  .image-card__link:hover svg {
+    transform: translateX(4px);
+  }
+</style>
