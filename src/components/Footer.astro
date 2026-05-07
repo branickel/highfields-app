@@ -91,6 +91,21 @@ const services = [
         Fully Licensed Pest Control Operator
       </p>
     </div>
+    <div class="footer__credit">
+      <div class="container">
+        <p class="footer__credit-text">
+          Website Developed by{' '}
+          <a
+            href="https://www.emberstack.com.au/"
+            class="footer__credit-brand"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Emberstack
+          </a>
+        </p>
+      </div>
+    </div>
   </div>
 </footer>
 
@@ -209,9 +224,38 @@ const services = [
     margin-top: 2px;
   }
 
+  .footer__credit {
+    border-top: 1px dashed var(--color-gray-600);
+    padding-block: var(--spacing-lg) var(--spacing-xl);
+  }
+
+  .footer__credit-text {
+    margin: 0;
+    text-align: center;
+    font-family: var(--font-family-sans);
+    font-size: var(--font-size-sm);
+    color: #94a3b8;
+  }
+
+  .footer__credit-brand {
+    font-weight: var(--font-weight-bold);
+    color: #e85d3a;
+    text-decoration: none;
+    transition: color var(--transition-fast), opacity var(--transition-fast);
+  }
+
+  .footer__credit-brand:hover {
+    color: #ff7a5c;
+  }
+
+  .footer__credit-brand:focus-visible {
+    outline: 2px solid #e85d3a;
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
   .footer__bottom {
     background-color: rgba(0, 0, 0, 0.3);
-    padding-block: var(--spacing-lg);
   }
 
   .footer__bottom-container {
@@ -219,6 +263,7 @@ const services = [
     flex-direction: column;
     gap: var(--spacing-sm);
     text-align: center;
+    padding-block: var(--spacing-lg);
   }
 
   @media (min-width: 768px) {
