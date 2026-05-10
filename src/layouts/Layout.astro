@@ -35,6 +35,17 @@ const fullTitle = title === 'Home' ? siteName : `${title} | ${siteName}`;
     <!-- Google Site Verification -->
     <meta name="google-site-verification" content="ukvK6VlL1afOQlXKY8Cwgxi6dU2nDSJhMJ1DOitBfOQ" />
 
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17960658761"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag('js', new Date());
+      gtag('config', 'AW-17960658761');
+    </script>
+
     <!-- Primary Meta Tags -->
     <title>{fullTitle}</title>
     <meta name="title" content={fullTitle} />
