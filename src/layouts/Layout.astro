@@ -14,13 +14,13 @@ interface Props {
 
 const {
   title,
-  description = 'Expert pest control and lawn care for Highfields & Toowoomba. Fully licensed, insured local team. Highfields Pest & Lawn Maintenance — free quotes.',
+  description = 'Opening mid November in Mackay. Expert pest control and lawn care — licensed, insured local team. Register interest for a free quote.',
   image = '/og-image.jpg',
   canonicalURL = Astro.url.href,
   noindex = false,
 } = Astro.props;
 
-const siteName = 'Highfields Pest & Lawn Maintenance';
+const siteName = 'Mackay Pest & Lawn Maintenance';
 const fullTitle = title === 'Home' ? siteName : `${title} | ${siteName}`;
 ---
 
@@ -81,9 +81,9 @@ const fullTitle = title === 'Home' ? siteName : `${title} | ${siteName}`;
     
     <!-- Geo Tags for Local SEO -->
     <meta name="geo.region" content="AU-QLD" />
-    <meta name="geo.placename" content="Highfields, Queensland" />
-    <meta name="geo.position" content="-27.4624;151.9517" />
-    <meta name="ICBM" content="-27.4624, 151.9517" />
+    <meta name="geo.placename" content="Mackay, Queensland" />
+    <meta name="geo.position" content="-21.1411;149.1861" />
+    <meta name="ICBM" content="-21.1411, 149.1861" />
     
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -114,21 +114,21 @@ const fullTitle = title === 'Home' ? siteName : `${title} | ${siteName}`;
       "email": "HighfieldsLGM@outlook.com",
       "address": {
         "@type": "PostalAddress",
-        "addressLocality": "Highfields",
+        "addressLocality": "Mackay",
         "addressRegion": "QLD",
         "addressCountry": "AU"
       },
       "geo": {
         "@type": "GeoCoordinates",
-        "latitude": -27.4624,
-        "longitude": 151.9517
+        "latitude": -21.1411,
+        "longitude": 149.1861
       },
       "areaServed": {
         "@type": "GeoCircle",
         "geoMidpoint": {
           "@type": "GeoCoordinates",
-          "latitude": -27.4624,
-          "longitude": 151.9517
+          "latitude": -21.1411,
+          "longitude": 149.1861
         },
         "geoRadius": "50000"
       },

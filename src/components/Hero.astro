@@ -10,9 +10,9 @@ interface Props {
 }
 
 const {
-  title = 'Prompt & Professional',
-  slogan = 'Expert Pest Control & Lawn Care',
-  subtitle = 'Highfields Pest & Lawn Maintenance provides expert, locally-owned solutions to keep your property pristine and protected. As a fully licensed operator, we deliver professional pest control services and premium lawn care.',
+  title = 'Coming Soon to Mackay',
+  slogan = 'Opening Mid November',
+  subtitle = 'Mackay Pest & Lawn Maintenance is opening mid November — expert, locally owned pest control and lawn care for Mackay and surrounding areas. Register your interest now for a free quote.',
   showCTA = true,
 } = Astro.props;
 ---
@@ -32,8 +32,8 @@ const {
   <div class="hero__container container">
     <div class="hero__content">
       <span class="hero__badge">
-        <Icon name="lucide:shield-check" />
-        Licensed & Fully Insured
+        <Icon name="lucide:calendar-clock" />
+        Opening Mid November · Mackay
       </span>
       
       <h1 class="hero__title">{title}</h1>
@@ -46,7 +46,7 @@ const {
         <div class="hero__actions">
           <a href="/contact" class="hero__cta-primary">
             <Icon name="lucide:calendar-check" />
-            Book Free Quote
+            Register Interest
           </a>
           <a href="tel:0434240629" class="hero__cta-secondary">
             <Icon name="lucide:phone" />
@@ -58,7 +58,7 @@ const {
       <div class="hero__features">
         <div class="hero__feature">
           <Icon name="lucide:check" />
-          <span>Same Day Service</span>
+          <span>Mid November Launch</span>
         </div>
         <div class="hero__feature">
           <Icon name="lucide:check" />
@@ -66,7 +66,7 @@ const {
         </div>
         <div class="hero__feature">
           <Icon name="lucide:check" />
-          <span>Local Experts</span>
+          <span>Licensed & Insured</span>
         </div>
       </div>
     </div>

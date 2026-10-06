@@ -54,7 +54,7 @@ export const POST: APIRoute = async ({ request }) => {
 
     // Send email to business owner
     const { error } = await resend.emails.send({
-      from: 'Highfields Website <josh@highfieldspestandlawn.com.au>',
+      from: 'Mackay Website <josh@highfieldspestandlawn.com.au>',
       to: ['HighfieldsLGM@outlook.com'],
       replyTo: email,
       subject: `New Enquiry: ${serviceName} - ${name}`,
@@ -102,7 +102,7 @@ export const POST: APIRoute = async ({ request }) => {
           
           <div style="padding: 20px; background-color: #2c675c; text-align: center;">
             <p style="color: rgba(255,255,255,0.8); margin: 0; font-size: 14px;">
-              This enquiry was submitted via the Highfields Pest & Lawn website
+              This enquiry was submitted via the Mackay Pest & Lawn website
             </p>
           </div>
         </div>
