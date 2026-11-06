@@ -31,11 +31,6 @@ const {
   
   <div class="hero__container container">
     <div class="hero__content">
-      <span class="hero__badge">
-        <Icon name="lucide:map-pin" />
-        Now Serving · Mackay
-      </span>
-      
       <h1 class="hero__title">{title}</h1>
       
       <p class="hero__slogan">{slogan}</p>
@@ -58,7 +53,7 @@ const {
       <div class="hero__features">
         <div class="hero__feature">
           <Icon name="lucide:check" />
-          <span>Now Operating in Mackay</span>
+          <span>Mackay &amp; Surrounds</span>
         </div>
         <div class="hero__feature">
           <Icon name="lucide:check" />
@@ -163,26 +158,6 @@ const {
     color: var(--color-white);
   }
 
-  .hero__badge {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--spacing-sm);
-    padding: var(--spacing-sm) var(--spacing-md);
-    background-color: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(8px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: var(--radius-full);
-    font-size: var(--font-size-sm);
-    font-weight: var(--font-weight-medium);
-    margin-bottom: var(--spacing-xl);
-  }
-
-  .hero__badge svg {
-    width: 18px;
-    height: 18px;
-    color: var(--color-accent);
-  }
-
   .hero__title {
     font-size: clamp(2.5rem, 5vw + 1rem, 4rem);
     font-weight: var(--font-weight-extrabold);
@@ -284,10 +259,6 @@ const {
   @media (max-width: 640px) {
     .hero__content {
       text-align: center;
-    }
-
-    .hero__badge {
-      margin-inline: auto;
     }
 
     .hero__actions {
