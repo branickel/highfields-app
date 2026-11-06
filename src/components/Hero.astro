@@ -10,9 +10,9 @@ interface Props {
 }
 
 const {
-  title = 'Coming Soon to Mackay',
-  slogan = 'Opening Mid November',
-  subtitle = 'Highfields Pest & Lawn Maintenance is opening mid November — expert, locally owned pest control and lawn care for Mackay and surrounding areas. Register your interest now for a free quote.',
+  title = 'Pest & Lawn Care in Mackay',
+  slogan = 'Licensed, Insured & Locally Owned',
+  subtitle = 'Highfields Pest & Lawn Maintenance provides expert, locally owned pest control and lawn care across Mackay and surrounding areas. Get in touch today for a free quote.',
   showCTA = true,
 } = Astro.props;
 ---
@@ -32,8 +32,8 @@ const {
   <div class="hero__container container">
     <div class="hero__content">
       <span class="hero__badge">
-        <Icon name="lucide:calendar-clock" />
-        Opening Mid November · Mackay
+        <Icon name="lucide:map-pin" />
+        Now Serving · Mackay
       </span>
       
       <h1 class="hero__title">{title}</h1>
@@ -46,7 +46,7 @@ const {
         <div class="hero__actions">
           <a href="/contact" class="hero__cta-primary">
             <Icon name="lucide:calendar-check" />
-            Register Interest
+            Get Free Quote
           </a>
           <a href="tel:0434240629" class="hero__cta-secondary">
             <Icon name="lucide:phone" />
@@ -58,7 +58,7 @@ const {
       <div class="hero__features">
         <div class="hero__feature">
           <Icon name="lucide:check" />
-          <span>Mid November Launch</span>
+          <span>Now Operating in Mackay</span>
         </div>
         <div class="hero__feature">
           <Icon name="lucide:check" />
